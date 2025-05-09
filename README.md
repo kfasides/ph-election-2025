@@ -24,7 +24,13 @@ The objective of this app is to provide voters with an interactive platform to e
    - Images containing candidate information were processed using **Google Gemini Flash 2.5**, which extracted text from the images.
 
 4. **Data Compilation**:
+
    - Extracted data was organized and structured into JSON format using **Microsoft Copilot** and **Vibe Coding** principles.
+
+5. **AI Search**:
+   - The application features an AI-powered search functionality using **Google Gemini**.
+   - Users can ask questions about the candidates, and the AI will provide relevant information based on the available data.
+   - An API key is required to enable the AI search feature.
 
 ## Disclaimer
 

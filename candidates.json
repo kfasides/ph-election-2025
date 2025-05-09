@@ -3,7 +3,7 @@
         "candidate_number": 42,
         "name": "MATA, DOC MARITES",
         "political_party": "Independent",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=MATA+DOC+MARITES",
+        "photo": "42.png",
         "basic_information": {
             "age": "52 years old",
             "residence": "Davao City"
@@ -57,7 +57,7 @@
         "candidate_number": 45,
         "name": "MENDOZA, HEIDI",
         "political_party": "Independent",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=MENDOZA+HEIDI",
+        "photo": "45.png",
         "basic_information": {
             "age": "61 years old",
             "residence": "Marikina City"
@@ -108,7 +108,7 @@
         "candidate_number": 46,
         "name": "MONTEMAYOR JR., JOSE",
         "political_party": "Independent",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=MONTEMAYOR+JR+JOSE",
+        "photo": "46.png",
         "basic_information": {
             "age": "62 years old",
             "residence": "Sasmuan, Pampanga"
@@ -161,7 +161,7 @@
         "candidate_number": 18,
         "name": "CAYETANO, PIA",
         "political_party": "NACIONALISTA PARTY",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=CAYETANO+PIA",
+        "photo": "18.png",
         "basic_information": {
             "age": "58 years old",
             "residence": "Fort Bonifacio, Taguig City"
@@ -235,7 +235,7 @@
         "candidate_number": 53,
         "name": "QUIBOLOY, APOLLO",
         "political_party": "Independent",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=QUIBOLOY+APOLLO",
+        "photo": "53.png",
         "basic_information": {
             "age": "74 years old",
             "residence": "Davao City"
@@ -281,7 +281,7 @@
         "candidate_number": 23,
         "name": "DORINGO, NANAY MIMI",
         "political_party": "Makabayang Koalisyon ng Mamamayan",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=DORINGO+NANAY+MIMI",
+        "photo": "23.png",
         "basic_information": {
             "age": "48 years old",
             "residence": "Caloocan City"
@@ -324,7 +324,7 @@
         "candidate_number": 40,
         "name": "MARQUEZ, NORMAN",
         "political_party": "INDEPENDENT",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=MARQUEZ+NORMAN",
+        "photo": "40.png",
         "basic_information": {
             "age": "63 years old",
             "residence": "Quezon City"
@@ -359,7 +359,7 @@
         "candidate_number": 13,
         "name": "BROSAS, ARLENE",
         "political_party": "MAKABAYANG KOALISYON NG MAMAMAYAN",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=BROSAS+ARLENE",
+        "photo": "13.png",
         "basic_information": {
             "age": "48 years old",
             "residence": "Quezon City"
@@ -416,7 +416,7 @@
         "candidate_number": 4,
         "name": "ANDAMO, NARS ALYN",
         "political_party": "Makabayang Koalisyon ng Mamamayan",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=ANDAMO+NARS+ALYN",
+        "photo": "4.png",
         "basic_information": {
             "age": "62 years old",
             "residence": "Dasmariñas Cavite"
@@ -452,7 +452,7 @@
         "candidate_number": 17,
         "name": "CASTRO, TEACHER FRANCE",
         "political_party": "MAKABAYANG KOALISYON NG MAMAMAYAN",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=CASTRO+TEACHER+FRANCE",
+        "photo": "17.png",
         "basic_information": {
             "age": "58 years old",
             "residence": "Valenzuela City"
@@ -508,7 +508,7 @@
         "candidate_number": 35,
         "name": "LAPID, LITO",
         "political_party": "NATIONALIST PEOPLE'S COALITION",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=LAPID+LITO",
+        "photo": "35.png",
         "basic_information": {
             "age": "69 years old",
             "residence": "Porac, Pampanga"
@@ -569,7 +569,7 @@
         "candidate_number": 16,
         "name": "CASIÑO, TEDDY",
         "political_party": "MAKABAYANG KOALISYON NG MAMAMAYAN",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=CASIÑO+TEDDY",
+        "photo": "16.png",
         "basic_information": {
             "age": "55 years old",
             "residence": "Makati City"
@@ -630,7 +630,7 @@
         "candidate_number": 21,
         "name": "DE GUZMAN, KA LEODY",
         "political_party": "Partido Lakas ng Masa",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=DE+GUZMAN+KA+LEODY",
+        "photo": "21.png",
         "basic_information": {
             "age": "65 years old",
             "residence": "Cainta, Rizal"
@@ -685,7 +685,7 @@
         "candidate_number": 43,
         "name": "MATULA, ATTY SONNY",
         "political_party": "Workers' and Peasants' Partylist",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=MATULA+ATTY+SONNY",
+        "photo": "43.png",
         "basic_information": {
             "age": "59 years old",
             "residence": "Agusan del Sur"
@@ -744,7 +744,7 @@
         "candidate_number": 25,
         "name": "ESPIRITU, LUKE",
         "political_party": "Partido Lakas ng Masa",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=ESPIRITU+LUKE",
+        "photo": "25.png",
         "basic_information": {
             "age": "50 years old",
             "residence": "Bacolod City"
@@ -805,7 +805,7 @@
         "candidate_number": 66,
         "name": "VILLAR, CAMILLE",
         "political_party": "NACIONALISTA PARTY",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=VILLAR+CAMILLE",
+        "photo": "66.png",
         "basic_information": {
             "age": "39 years old",
             "residence": "Las Piñas City"
@@ -876,7 +876,7 @@
         "candidate_number": 14,
         "name": "CABONEGRO, ROY",
         "political_party": "DEMOCRATIC PARTY OF THE PHILIPPINES",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=CABONEGRO+ROY",
+        "photo": "14.png",
         "basic_information": {
             "age": "50 years old",
             "residence": "Silang, Cavite"
@@ -927,7 +927,7 @@
         "candidate_number": 60,
         "name": "TAPADO, MICHAEL",
         "political_party": "Partido Maharlika",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=TAPADO+MICHAEL",
+        "photo": "60.png",
         "basic_information": {
             "age": "55 years old",
             "residence": "Las Piñas City"
@@ -963,7 +963,7 @@
         "candidate_number": 28,
         "name": "GO, BONG",
         "political_party": "PDP - LABAN",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=GO+BONG",
+        "photo": "28.png",
         "basic_information": {
             "age": "50 years old",
             "residence": "Lupon, Davao Oriental"
@@ -1025,7 +1025,7 @@
         "candidate_number": 29,
         "name": "GONZALES, NORBERTO",
         "political_party": "PARTIDO DEMOKRATIKO SOSYALISTA NG PILIPINAS",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=GONZALES+NORBERTO",
+        "photo": "29.png",
         "basic_information": {
             "age": "77 years old",
             "residence": "Balanga, Bataan"
@@ -1072,7 +1072,7 @@
         "candidate_number": 32,
         "name": "JOSE, RELLY JR.",
         "political_party": "KILUSANG BAGONG LIPUNAN",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=JOSE+RELLY+JR",
+        "photo": "32.png",
         "basic_information": {
             "age": "56 years old",
             "residence": "Malate, Manila"
@@ -1112,7 +1112,7 @@
         "candidate_number": 26,
         "name": "FLORANDA, MODY PISTON",
         "political_party": "Makabayang Koalisyon ng Mamamayan",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=FLORANDA+MODY+PISTON",
+        "photo": "26.png",
         "basic_information": {
             "age": "58 years old",
             "residence": "Quezon City"
@@ -1150,7 +1150,7 @@
         "candidate_number": 33,
         "name": "LACSON, PING",
         "political_party": "INDEPENDENT",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=LACSON+PING",
+        "photo": "33.png",
         "basic_information": {
             "age": "76 years old",
             "residence": "Muntinlupa City"
@@ -1216,7 +1216,7 @@
         "candidate_number": 9,
         "name": "BINAY, ABBY",
         "political_party": "NATIONALIST PEOPLE'S COALITION",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=BINAY+ABBY",
+        "photo": "9.png",
         "basic_information": {
             "age": "49 years old",
             "residence": "Makati City"
@@ -1281,7 +1281,7 @@
         "candidate_number": 20,
         "name": "DE ALBAN, ATTORNEY ANGELO",
         "political_party": "INDEPENDENT",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=DE+ALBAN+ATTORNEY+ANGELO",
+        "photo": "20.png",
         "basic_information": {
             "age": "43 years old",
             "residence": "Meycauayan, Bulacan"
@@ -1319,7 +1319,7 @@
         "candidate_number": 59,
         "name": "SOTTO, TITO",
         "political_party": "Nationalist People's Coalition",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=SOTTO+TITO",
+        "photo": "59.png",
         "basic_information": {
             "age": "76 years old",
             "residence": "Quezon City"
@@ -1383,7 +1383,7 @@
         "candidate_number": 15,
         "name": "CAPUYAN, ALLEN",
         "political_party": "PARTIDO PILIPINO PARA SA PAGBABAGO",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=CAPUYAN+ALLEN",
+        "photo": "15.png",
         "basic_information": {
             "age": "62 years old",
             "residence": "Antipolo, Rizal"
@@ -1426,7 +1426,7 @@
         "candidate_number": 41,
         "name": "MARTINEZ, ERIC",
         "political_party": "Independent",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=MARTINEZ+ERIC",
+        "photo": "41.png",
         "basic_information": {
             "age": "52 years old",
             "residence": "Valenzuela City"
@@ -1484,7 +1484,7 @@
         "candidate_number": 12,
         "name": "BOSITA, BONIFACIO",
         "political_party": "INDEPENDENT",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=BOSITA+BONIFACIO",
+        "photo": "12.png",
         "basic_information": {
             "age": "59 years old",
             "residence": "Silang, Cavite"
@@ -1528,7 +1528,7 @@
         "candidate_number": 2,
         "name": "ADONIS, JEROME",
         "political_party": "Makabayang Koalisyon ng Mamamayan",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=ADONIS+JEROME",
+        "photo": "2.png",
         "basic_information": {
             "age": "52 years old",
             "residence": "Quezon City"
@@ -1563,7 +1563,7 @@
         "candidate_number": 61,
         "name": "TOLENTINO, FRANCIS TOL",
         "political_party": "PARTIDO FEDERAL NG PILIPINAS",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=TOLENTINO+FRANCIS+TOL",
+        "photo": "61.png",
         "basic_information": {
             "age": "64 years old",
             "residence": "Tagaytay City"
@@ -1648,7 +1648,7 @@
         "candidate_number": 24,
         "name": "ESCOBAL, ARNEL",
         "political_party": "Partido Maharlika",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=ESCOBAL+ARNEL",
+        "photo": "24.png",
         "basic_information": {
             "age": "59 years old",
             "residence": "Quezon City"
@@ -1703,7 +1703,7 @@
         "candidate_number": 57,
         "name": "SAHIDULLA, NUR-ANA",
         "political_party": "Independent",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=SAHIDULLA+NUR-ANA",
+        "photo": "57.png",
         "basic_information": {
             "age": "65 years old",
             "residence": "Zamboanga City"
@@ -1765,7 +1765,7 @@
         "candidate_number": 1,
         "name": "ABALOS, BENHUR",
         "political_party": "Partido Federal ng Pilipinas",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=ABALOS+BENHUR",
+        "photo": "1.png",
         "basic_information": {
             "age": "62 years old",
             "residence": "Mandaluyong City"
@@ -1839,7 +1839,7 @@
         "candidate_number": 39,
         "name": "MARCOS, IMEE",
         "political_party": "NACIONALISTA PARTY",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=MARCOS+IMEE",
+        "photo": "39.png",
         "basic_information": {
             "age": "68 years old",
             "residence": "Laoag, Ilocos Norte"
@@ -1944,7 +1944,7 @@
         "candidate_number": 19,
         "name": "D'ANGELO, DAVID",
         "political_party": "BUNYOG PAGKAKAISA PARTY",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=D%27ANGELO+DAVID",
+        "photo": "19.png",
         "basic_information": {
             "age": "46 years old",
             "residence": "Plaridel, Bulacan"
@@ -1997,7 +1997,7 @@
         "candidate_number": 55,
         "name": "REVILLAME, WILLIE",
         "political_party": "Independent",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=REVILLAME+WILLIE",
+        "photo": "55.png",
         "basic_information": {
             "age": "63 years old",
             "residence": "Quezon City"
@@ -2040,7 +2040,7 @@
         "candidate_number": 48,
         "name": "OLIVAR, JOSE",
         "political_party": "Independent",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=OLIVAR+JOSE",
+        "photo": "48.png",
         "basic_information": {
             "age": "57 years old",
             "residence": "Pasay City"
@@ -2070,7 +2070,7 @@
         "candidate_number": 22,
         "name": "DELA ROSA, BATO",
         "political_party": "PDP - LABAN",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=DELA+ROSA+BATO",
+        "photo": "22.png",
         "basic_information": {
             "age": "62 years old",
             "residence": "Davao City"
@@ -2129,7 +2129,7 @@
         "candidate_number": 37,
         "name": "LIDASAN, AMIRAH",
         "political_party": "MAKABAYANG KOALISYON NG MAMAMAYAN",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=LIDASAN+AMIRAH",
+        "photo": "37.png",
         "basic_information": {
             "age": "50 years old",
             "residence": "Cotabato City"
@@ -2179,7 +2179,7 @@
         "candidate_number": 10,
         "name": "BONDOC, JIMMY",
         "political_party": "PDP-LABAN",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=BONDOC+JIMMY",
+        "photo": "10.png",
         "basic_information": {
             "age": "49 years old",
             "residence": "Quezon City"
@@ -2225,7 +2225,7 @@
         "candidate_number": 11,
         "name": "REVILLA, RAMON",
         "political_party": "LAKAS - CMD",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=REVILLA+RAMON",
+        "photo": "11.png",
         "basic_information": {
             "age": "58 years old",
             "residence": "Bacoor, Cavite"
@@ -2310,7 +2310,7 @@
         "candidate_number": 8,
         "name": "BALLON, ROBERTO",
         "political_party": "Independent",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=BALLON+ROBERTO",
+        "photo": "8.png",
         "basic_information": {
             "age": "56 years old",
             "residence": "Zamboanga Sibugay"
@@ -2341,7 +2341,7 @@
         "candidate_number": 58,
         "name": "SALVADOR, PHILLIP",
         "political_party": "PDP-Laban",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=SALVADOR+PHILLIP",
+        "photo": "58.png",
         "basic_information": {
             "age": "71 years old",
             "residence": "Pasig City"
@@ -2376,7 +2376,7 @@
         "candidate_number": 65,
         "name": "VERCELES, LEANDRO",
         "political_party": "Independent",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=VERCELES+LEANDRO",
+        "photo": "65.png",
         "basic_information": {
             "age": "57 years old",
             "residence": "Muntinlupa City"
@@ -2433,7 +2433,7 @@
         "candidate_number": 27,
         "name": "GAMBOA, MARC LOUIE",
         "political_party": "Independent",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=GAMBOA+MARC+LOUIE",
+        "photo": "27.png",
         "basic_information": {
             "age": "40 years old",
             "residence": "Quezon City"
@@ -2482,7 +2482,7 @@
         "candidate_number": 56,
         "name": "RODRIGUEZ, VIC",
         "political_party": "Independent",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=RODRIGUEZ+VIC",
+        "photo": "56.png",
         "basic_information": {
             "age": "50 years old",
             "residence": "Quezon City"
@@ -2532,7 +2532,7 @@
         "candidate_number": 3,
         "name": "AMAD, WILSON",
         "political_party": "Independent",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=AMAD+WILSON",
+        "photo": "3.png",
         "basic_information": {
             "age": "52 years old",
             "residence": "Cagayan de Oro"
@@ -2578,7 +2578,7 @@
         "candidate_number": 50,
         "name": "PACQUIAO, MANNY",
         "political_party": "Partido Federal ng Pilipinas",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=PACQUIAO+MANNY",
+        "photo": "50.png",
         "basic_information": {
             "age": "46 years old",
             "residence": "Quezon City"
@@ -2659,7 +2659,7 @@
         "candidate_number": 30,
         "name": "HINLO, JAYVEE",
         "political_party": "PDP - LABAN",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=HINLO+JAYVEE",
+        "photo": "30.png",
         "basic_information": {
             "age": "53 years old",
             "residence": "Bacolod City"
@@ -2705,7 +2705,7 @@
         "candidate_number": 47,
         "name": "MUSTAPHA, SUBAIR",
         "political_party": "Workers' and Peasants' Partylist",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=MUSTAPHA+SUBAIR",
+        "photo": "47.png",
         "basic_information": {
             "age": "72 years old",
             "residence": "Marawi City, Lanao del Sur"
@@ -2742,7 +2742,7 @@
         "candidate_number": 54,
         "name": "RAMOS, DANILO",
         "political_party": "Makabayang Koalisyon ng Mamamayan",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=RAMOS+DANILO",
+        "photo": "54.png",
         "basic_information": {
             "age": "68 years old",
             "residence": "Malolos, Bulacan"
@@ -2779,7 +2779,7 @@
         "candidate_number": 52,
         "name": "QUERUBIN, ARIEL",
         "political_party": "Nacionalista Party",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=QUERUBIN+ARIEL",
+        "photo": "52.png",
         "basic_information": {
             "age": "68 years old",
             "residence": "Bauang, La Union"
@@ -2830,7 +2830,7 @@
         "candidate_number": 6,
         "name": "ARAMBULO, RONNEL",
         "political_party": "Makabayang Koalisyon ng Mamamayan",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=ARAMBULO+RONNEL",
+        "photo": "6.png",
         "basic_information": {
             "age": "48 years old",
             "residence": "Binangonan Rizal"
@@ -2867,7 +2867,7 @@
         "candidate_number": 5,
         "name": "AQUINO, BAM",
         "political_party": "KATIPUNAN NG NAGKAKAISANG PILIPINO",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=AQUINO+BAM",
+        "photo": "5.png",
         "basic_information": {
             "age": "47 years old",
             "residence": "Quezon City"
@@ -2933,7 +2933,7 @@
         "candidate_number": 62,
         "name": "TULFO, BEN BITAG",
         "political_party": "Independent",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=TULFO+BEN+BITAG",
+        "photo": "62.png",
         "basic_information": {
             "age": "69 years old",
             "residence": "Quezon City"
@@ -2998,7 +2998,7 @@
         "candidate_number": 63,
         "name": "TULFO, ERWIN",
         "political_party": "LAKAS-CMD",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=TULFO+ERWIN",
+        "photo": "63.png",
         "basic_information": {
             "age": "61 years old",
             "residence": "Quezon City"
@@ -3071,7 +3071,7 @@
         "candidate_number": 64,
         "name": "VALBUENA, MAR MANIBELA",
         "political_party": "Independent",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=VALBUENA+MAR+MANIBELA",
+        "photo": "64.png",
         "basic_information": {
             "age": "44 years old",
             "residence": "Pasay City"
@@ -3112,7 +3112,7 @@
         "candidate_number": 31,
         "name": "HONASAN, GRINGO",
         "political_party": "REFORM-PH",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=HONASAN+GRINGO",
+        "photo": "31.png",
         "basic_information": {
             "age": "76 years old",
             "residence": "Marikina City"
@@ -3182,7 +3182,7 @@
         "candidate_number": 51,
         "name": "PANGILINAN, KIKO",
         "political_party": "Liberal Party",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=PANGILINAN+KIKO",
+        "photo": "51.png",
         "basic_information": {
             "age": "61 years old",
             "residence": "Quezon City"
@@ -3251,7 +3251,7 @@
         "candidate_number": 7,
         "name": "ARELLANO, ERNESTO",
         "political_party": "KATIPUNAN NG KAMALAYANG KAYUMANGGI",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=ARELLANO+ERNESTO",
+        "photo": "7.png",
         "basic_information": {
             "age": "84 years old",
             "residence": "Quezon City"
@@ -3299,7 +3299,7 @@
         "candidate_number": 44,
         "name": "MAZA, LIZA",
         "political_party": "Makabayang Koalisyon ng Mamamayan",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=MAZA+LIZA",
+        "photo": "44.png",
         "basic_information": {
             "age": "67 years old",
             "residence": "Quezon City"
@@ -3353,7 +3353,7 @@
         "candidate_number": 38,
         "name": "MARCOLETA, RODANTE",
         "political_party": "INDEPENDENT",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=MARCOLETA+RODANTE",
+        "photo": "38.png",
         "basic_information": {
             "age": "71 years old",
             "residence": "Cainta, Rizal"
@@ -3422,7 +3422,7 @@
         "candidate_number": 34,
         "name": "LAMBINO, RAUL",
         "political_party": "PDP - LABAN",
-        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=LAMBINO+RAUL",
+        "photo": "34.png",
         "basic_information": {
             "age": "67 years old",
             "residence": "Mangaldan, Pangasinan"

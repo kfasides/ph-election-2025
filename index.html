@@ -164,13 +164,40 @@
             <p class="text-sm text-gray-500 mt-1">Click on a candidate to view details. You can select up to 12 preferred senators.</p>
         </header>
 
+        <div id="apiKeySection" class="mb-6 p-4 bg-gray-800 rounded-lg shadow">
+            <div class="flex items-center mb-3">
+                <label for="aiSearchToggle" class="text-sm font-medium text-gray-300 mr-3">Enable AI Search:</label>
+                <input type="checkbox" id="aiSearchToggle" class="form-checkbox h-5 w-5 text-indigo-600 rounded focus:ring-indigo-500 cursor-pointer">
+                <span id="aiSearchInfo" class="ml-2 text-xs text-gray-400">
+                    Uses Google Gemini 1.5 Flash. Free tier usage may apply.
+                    <a href="https://ai.google.dev/pricing" target="_blank" class="text-indigo-400 hover:underline">Billing Info</a>.
+                </span>
+            </div>
+
+            <div id="apiKeyControlsContainer" class="hidden">
+                <p id="apiKeyStatusMessage" class="text-sm text-gray-400 mb-2"></p>
+                <div id="apiKeyInputGroup" class="flex flex-col sm:flex-row items-center gap-2 mb-2">
+                    <label for="geminiApiKeyInput" class="text-sm font-medium text-gray-300 whitespace-nowrap sr-only sm:not-sr-only">Gemini API Key:</label>
+                    <input type="password" id="geminiApiKeyInput" placeholder="Enter your Gemini API Key" class="search-input flex-grow pl-3 pr-3 py-2 rounded-lg border focus:ring-indigo-500 focus:border-indigo-500">
+                    <button id="saveApiKeyButton" class="action-button bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg text-sm w-full sm:w-auto">Save Key</button>
+                </div>
+                <button id="editApiKeyButton" class="action-button bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-3 rounded-lg text-sm hidden mb-2">Edit API Key</button>
+                <p class="text-xs text-gray-500">
+                    Your API key is stored in session storage for this browser session only.
+                    <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-indigo-400 hover:underline">Get a free API key here</a>.
+                </p>
+            </div>
+            <p id="apiKeyPromptMessage" class="text-sm text-gray-400 mt-2">Enable AI Search for advanced search capabilities using Google Gemini.</p>
+        </div>
+
+
         <div class="mb-8 flex flex-col sm:flex-row justify-between items-center gap-4">
             <div class="flex space-x-2 border border-gray-700 rounded-lg p-1 bg-gray-800">
                 <button id="allCandidatesTab" class="tab-button active px-4 py-2 rounded-md text-sm font-medium">All Candidates</button>
                 <button id="mySenatorsTab" class="tab-button px-4 py-2 rounded-md text-sm font-medium">My Senators (<span id="selectedCount">0</span>/12)</button>
             </div>
-            <div class="relative w-full sm:w-auto">
-                <input type="text" id="searchInput" placeholder="Search candidates..." class="search-input w-full sm:w-64 pl-10 pr-4 py-2 rounded-lg border focus:ring-indigo-500 focus:border-indigo-500">
+            <div class="relative w-full sm:w-1/2">
+                <input type="text" id="searchInput" placeholder="Search candidates..." class="search-input w-full pl-10 pr-4 py-2 rounded-lg border focus:ring-indigo-500 focus:border-indigo-500">
                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                     <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
@@ -288,9 +315,35 @@
         const allCandidatesTab = document.getElementById('allCandidatesTab');
         const mySenatorsTab = document.getElementById('mySenatorsTab');
 
+        // API Key and AI Search Toggle Elements
+        const aiSearchToggle = document.getElementById('aiSearchToggle');
+        const aiSearchInfo = document.getElementById('aiSearchInfo');
+        const apiKeyControlsContainer = document.getElementById('apiKeyControlsContainer');
+        const apiKeyStatusMessage = document.getElementById('apiKeyStatusMessage');
+        const apiKeyInputGroup = document.getElementById('apiKeyInputGroup');
+        const geminiApiKeyInput = document.getElementById('geminiApiKeyInput');
+        const saveApiKeyButton = document.getElementById('saveApiKeyButton'); // Already declared, but good to group
+        const editApiKeyButton = document.getElementById('editApiKeyButton');
+        const apiKeyPromptMessage = document.getElementById('apiKeyPromptMessage');
+
         let selectedSenators = JSON.parse(localStorage.getItem('selectedSenators')) || [];
         let currentFilter = 'all'; // 'all' or 'selected'
         let currentCandidateIdInModal = null;
+        let geminiApiKey = sessionStorage.getItem('geminiApiKey');
+        let aiSearchEnabled = JSON.parse(sessionStorage.getItem('aiSearchEnabled')) || false;
+        let searchDebounceTimer;
+
+        const defaultSearchPlaceholder = "Search candidates...";
+        const aiSearchPlaceholder = "e.g., who supports death penalty?";
+
+        const spinnerSVG = `<svg class="animate-spin h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+</svg>`;
+        const searchIconSVG = `<svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+<path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+</svg>`;
+
 
         // Function to show non-blocking notifications
         function showNotification(message, type = 'error', duration = 3000) {
@@ -314,6 +367,43 @@
             }, duration);
         }
 
+        function saveApiKey() {
+            const apiKeyInputValue = geminiApiKeyInput.value.trim();
+            if (apiKeyInputValue) {
+                geminiApiKey = apiKeyInputValue;
+                sessionStorage.setItem('geminiApiKey', geminiApiKey);
+                showNotification('Gemini API Key saved for this session.', 'success');
+                updateApiKeySectionVisibility();
+                geminiApiKeyInput.value = ''; // Clear the input field
+            } else {
+                showNotification('Please enter a valid Gemini API Key.', 'error');
+            }
+        }
+
+        function updateApiKeySectionVisibility() {
+            if (aiSearchEnabled) {
+                apiKeyControlsContainer.classList.remove('hidden');
+                apiKeyPromptMessage.classList.add('hidden');
+                searchInput.placeholder = aiSearchPlaceholder;
+
+                if (geminiApiKey) {
+                    apiKeyStatusMessage.textContent = 'Gemini API Key is active.';
+                    apiKeyInputGroup.classList.add('hidden');
+                    editApiKeyButton.classList.remove('hidden');
+                    if (geminiApiKeyInput) geminiApiKeyInput.value = ''; // Clear password field
+                } else {
+                    apiKeyStatusMessage.textContent = 'AI Search enabled. Please enter your Gemini API Key below.';
+                    apiKeyInputGroup.classList.remove('hidden');
+                    editApiKeyButton.classList.add('hidden');
+                }
+            } else {
+                apiKeyControlsContainer.classList.add('hidden');
+                apiKeyPromptMessage.classList.remove('hidden');
+                searchInput.placeholder = defaultSearchPlaceholder;
+                apiKeyStatusMessage.textContent = '';
+            }
+        }
+
 
         function updateSelectedCount() {
             selectedCountDisplay.textContent = selectedSenators.length;
@@ -331,41 +421,123 @@
             localStorage.setItem('selectedSenators', JSON.stringify(selectedSenators));
         }
 
-        function renderCandidates(filter = '', tab = 'all') {
+        async function searchWithGemini(query, candidates) {
+            if (!geminiApiKey) {
+                showNotification('Gemini API Key not set for AI Search. Using local search.', 'error');
+                // Fallback to local search
+                return candidates.filter(candidate =>
+                    candidate.name.toLowerCase().includes(query.toLowerCase()) ||
+                    candidate.political_party.toLowerCase().includes(query.toLowerCase())
+                );
+            }
+
+            const searchIconContainer = searchInput.parentElement.querySelector('.absolute.inset-y-0.left-0.pl-3.flex.items-center');
+            const originalIconHTML = searchIconContainer ? searchIconContainer.innerHTML : searchIconSVG;
+            if (searchIconContainer) searchIconContainer.innerHTML = spinnerSVG;
+
+            const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${geminiApiKey}`;
+
+            const simplifiedCandidates = candidates;
+
+            const prompt = `
+                You are an AI assistant helping to find Philippine senatorial candidates based on a user's query.
+                Use your comprehensive understanding of diverse topics, including current events and public figures (drawing from your knowledge base which includes web information), to interpret the user's query effectively.
+                I will provide you with a list of candidates and their details (name, political party, some platforms, stances).
+                Your primary task is to identify which candidates *from this specific list* best match the user's query.
+                Return a JSON array of "candidate_number" (which is an integer) for the matching candidates from the provided list.
+                If no candidates match, return an empty JSON array: [].
+                Only return candidate_numbers from the provided list. Do not invent new numbers or information not present in the candidate details.
+                Do not include any explanations, apologies, or introductory text. Your entire response must be only the JSON array of numbers.
+                For example, if candidates with numbers 3, 7, and 12 match, your response should be exactly: [3, 7, 12]
+
+                Candidate List:
+                ${JSON.stringify(simplifiedCandidates)}
+
+                User Query: "${query}"
+
+                Matching candidate_numbers (JSON array of integers):
+            `;
+
+            try {
+                const response = await fetch(GEMINI_API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: prompt }] }],
+                        generationConfig: { temperature: 0.2 } // Lower temperature for more factual/deterministic output
+                    }),
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    console.error('Gemini API Error:', errorData);
+                    showNotification(`Gemini API Error: ${errorData.error?.message || response.statusText}`, 'error');
+                    return [];
+                }
+
+                const data = await response.json();
+                let resultText = '';
+
+                if (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0] && data.candidates[0].content.parts[0].text) {
+                    resultText = data.candidates[0].content.parts[0].text;
+                } else if (data.promptFeedback && data.promptFeedback.blockReason) {
+                    showNotification(`Gemini content blocked: ${data.promptFeedback.blockReason?.reason || data.promptFeedback.blockReason}`, 'error');
+                    console.error('Gemini API Blocked:', data.promptFeedback);
+                    return [];
+                } else {
+                    console.error('Unexpected Gemini API response structure:', data);
+                    showNotification('Error parsing Gemini response. Check console.', 'error');
+                    return [];
+                }
+
+                resultText = resultText.replace(/^```json\s*|```\s*$/g, '').trim();
+                let matchingCandidateNumbers;
+                try {
+                    matchingCandidateNumbers = JSON.parse(resultText);
+                    if (!Array.isArray(matchingCandidateNumbers) || !matchingCandidateNumbers.every(num => typeof num === 'number')) {
+                        console.error('Gemini API did not return a valid JSON array of numbers:', resultText);
+                        showNotification('AI search returned an unexpected format.', 'error');
+                        return [];
+                    }
+                } catch (e) {
+                    console.error('Error parsing JSON from Gemini:', e, "Raw response:", resultText);
+                    showNotification('Error processing AI search results.', 'error');
+                    return [];
+                }
+                return candidates.filter(c => matchingCandidateNumbers.includes(c.candidate_number));
+            } catch (error) {
+                console.error('Error calling Gemini API:', error);
+                showNotification('Failed to connect to AI search service.', 'error');
+                return [];
+            } finally {
+                if (searchIconContainer) searchIconContainer.innerHTML = originalIconHTML;
+            }
+        }
+
+        function renderCandidatesFromList(listToRender, searchTerm = '', currentTab = 'all') {
             candidateGrid.innerHTML = '';
             noResultsMessage.classList.add('hidden');
             noSelectionsMessage.classList.add('hidden');
 
-            let candidatesToDisplay = candidatesData;
-
-            if (tab === 'selected') {
-                candidatesToDisplay = candidatesData.filter(c => selectedSenators.includes(c.candidate_number)); // Filter by selected candidate numbers
-                if (candidatesToDisplay.length === 0) {
-                    noSelectionsMessage.classList.remove('hidden');
-                    return;
-                }
-            }
-
-            const searchTerm = filter.toLowerCase().trim();
-            if (searchTerm) {
-                candidatesToDisplay = candidatesToDisplay.filter(candidate =>
-                    candidate.name.toLowerCase().includes(searchTerm) ||
-                    candidate.political_party.toLowerCase().includes(searchTerm)
-                );
-            }
+            const candidatesToDisplay = listToRender;
 
             if (candidatesToDisplay.length === 0) {
-                noResultsMessage.classList.remove('hidden');
+                if (searchTerm) {
+                    noResultsMessage.classList.remove('hidden');
+                } else if (currentTab === 'selected') {
+                    noSelectionsMessage.classList.remove('hidden');
+                }
+                 // If 'all' tab and empty, initial load message should handle it.
                 return;
             }
 
-            candidatesToDisplay.forEach(candidate => {
+             candidatesToDisplay.forEach(candidate => {
                 const card = document.createElement('div');
                 card.className = `candidate-card fade-in relative group bg-gray-800 rounded-lg shadow-lg p-5 cursor-pointer flex flex-col items-center text-center ${selectedSenators.includes(candidate.candidate_number) ? 'selected' : ''}`;
                 card.dataset.id = candidate.candidate_number;
 
                 const image = document.createElement('img');
-                image.src = candidate.photo;
+                image.src = './img/' + candidate.photo;
                 image.alt = candidate.name;
                 image.className = 'w-32 h-32 object-cover rounded-full mb-4 border-2 border-gray-700';
 
@@ -419,24 +591,78 @@
                     card.classList.toggle('selected', selectedSenators.includes(candidateId));
 
                     if (currentFilter === 'selected' && index > -1) {
-                        renderCandidates(searchInput.value, currentFilter);
+                        // Re-render "My Senators" tab if an item was removed
+                        const currentSearchTerm = searchInput.value.trim();
+                        const updatedSelectedList = candidatesData.filter(c => selectedSenators.includes(c.candidate_number));
+                        if (currentSearchTerm && geminiApiKey) {
+                            (async () => {
+                                candidateGrid.innerHTML = `<p class="text-center text-gray-400 col-span-full py-10">${spinnerSVG} AI is searching...</p>`;
+                                const aiResults = await searchWithGemini(currentSearchTerm, updatedSelectedList);
+                                renderCandidatesFromList(aiResults, currentSearchTerm, 'selected');
+                            })();
+                        } else if (currentSearchTerm) {
+                            const localFiltered = updatedSelectedList.filter(cand =>
+                                cand.name.toLowerCase().includes(currentSearchTerm.toLowerCase()) ||
+                                cand.political_party.toLowerCase().includes(currentSearchTerm.toLowerCase())
+                            );
+                            renderCandidatesFromList(localFiltered, currentSearchTerm, 'selected');
+                        } else {
+                            renderCandidatesFromList(updatedSelectedList, '', 'selected');
+                        }
                     }
+
                 });
 
-                card.appendChild(addButton);
+                // Add candidate number overlay
+                const candidateNumberOverlay = document.createElement('div');
+                candidateNumberOverlay.className = 'absolute bottom-2 left-2 text-gray-100 text-xs font-semibold bg-gray-700 bg-opacity-75 rounded-md px-2 py-1';
+                candidateNumberOverlay.textContent = `#${candidate.candidate_number}`;
+
                 card.appendChild(image);
                 card.appendChild(name);
                 card.appendChild(party);
+                card.appendChild(candidateNumberOverlay);
 
                 card.addEventListener('click', () => openModal(candidate.candidate_number));
                 candidateGrid.appendChild(card);
             });
         }
 
+        async function performSearchAndRender(searchTerm, tab) {
+            searchTerm = searchTerm.trim();
+            let baseList;
+            if (tab === 'selected') {
+                baseList = candidatesData.filter(c => selectedSenators.includes(c.candidate_number));
+            } else { // 'all'
+                baseList = candidatesData;
+            }
+
+            if (searchTerm) {
+                let filteredList;
+                if (aiSearchEnabled) {
+                    candidateGrid.innerHTML = `<p class="text-center text-gray-400 col-span-full py-10">
+                        <span class="inline-block align-middle">${spinnerSVG}</span>
+                        <span class="inline-block align-middle ml-2">AI is searching for "${searchTerm}"...</span>
+                    </p>`;
+                    filteredList = await searchWithGemini(searchTerm, baseList);
+                } else {
+                    const termLower = searchTerm.toLowerCase();
+                    filteredList = baseList.filter(candidate =>
+                        candidate.name.toLowerCase().includes(termLower) ||
+                        candidate.political_party.toLowerCase().includes(termLower)
+                    );
+                }
+                renderCandidatesFromList(filteredList, searchTerm, tab);
+            } else { // No search term
+                renderCandidatesFromList(baseList, '', tab);
+            }
+        }
+
+
         function populateModal(candidate) {
             currentCandidateIdInModal = candidate.candidate_number;
             modalCandidateNameTitle.textContent = candidate.name;
-            modalCandidatePhoto.src = candidate.photo || 'https://placehold.co/300x300/E0E0E0/757575?text=No+Image';
+            modalCandidatePhoto.src = './img/' + candidate.photo || 'https://placehold.co/300x300/E0E0E0/757575?text=No+Image';
             modalCandidatePhoto.alt = candidate.name;
             modalCandidateParty.textContent = candidate.political_party;
             modalCandidateAge.textContent = `Age: ${candidate.basic_information.age}`;
@@ -523,9 +749,12 @@
 
         // Event Listeners
         searchInput.addEventListener('input', (e) => {
-            renderCandidates(e.target.value, currentFilter);
+            clearTimeout(searchDebounceTimer);
+            searchDebounceTimer = setTimeout(async () => {
+                const searchTerm = e.target.value.trim();
+                performSearchAndRender(searchTerm, currentFilter);
+            }, 1500);
         });
-
         closeModalButton.addEventListener('click', closeModal);
         window.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
@@ -573,7 +802,7 @@
 
             // If on "My Senators" tab and a senator is removed, re-render
             if (currentFilter === 'selected' && index > -1) {
-                renderCandidates(searchInput.value, currentFilter);
+                performSearchAndRender(searchInput.value, 'selected');
             }
         });
 
@@ -581,35 +810,71 @@
             currentFilter = 'all';
             allCandidatesTab.classList.add('active');
             mySenatorsTab.classList.remove('active');
-            renderCandidates(searchInput.value, currentFilter);
+            performSearchAndRender(searchInput.value, 'all');
         });
 
         mySenatorsTab.addEventListener('click', () => {
             currentFilter = 'selected';
             mySenatorsTab.classList.add('active');
             allCandidatesTab.classList.remove('active');
-            renderCandidates(searchInput.value, currentFilter);
+            performSearchAndRender(searchInput.value, 'selected');
         });
-
-        // Initial Load
-        updateSelectedCount();
-        renderCandidates('', currentFilter);
 
         function updateTabLabels() {
             const allCandidatesCount = candidatesData.length;
-            allCandidatesTab.innerHTML = `Candidates (${allCandidatesCount})`; // Update tab label with total candidates
+            allCandidatesTab.innerHTML = `All Candidates (${allCandidatesCount})`;
         }
 
         async function initializeCandidates() {
             candidatesData = await fetchCandidates();
-            updateTabLabels(); // Update tab labels after fetching candidates
-            renderCandidates('', currentFilter);
+            if (candidatesData.length === 0) {
+                candidateGrid.innerHTML = '<p class="text-center text-gray-400 mt-10 text-xl col-span-full">Failed to load candidate data or no data available.</p>';
+                noResultsMessage.classList.add('hidden');
+                allCandidatesTab.innerHTML = `All Candidates (0)`;
+                mySenatorsTab.classList.remove('active'); // Ensure 'All' tab seems primary
+                allCandidatesTab.classList.add('active');
+                return;
+            }
+            // Sort candidates by candidate_number
+            candidatesData.sort((a, b) => a.candidate_number - b.candidate_number);
+
+            updateTabLabels();
+            performSearchAndRender('', currentFilter); // Initial render
         }
 
-        document.addEventListener('DOMContentLoaded', initializeCandidates);
+        document.addEventListener('DOMContentLoaded', () => {
+            aiSearchToggle.checked = aiSearchEnabled;
+            // Set initial placeholder based on aiSearchEnabled state
+            updateApiKeySectionVisibility();
+
+            saveApiKeyButton.addEventListener('click', saveApiKey);
+
+            editApiKeyButton.addEventListener('click', () => {
+                apiKeyInputGroup.classList.remove('hidden');
+                editApiKeyButton.classList.add('hidden');
+                apiKeyStatusMessage.textContent = 'Update your Gemini API Key.';
+                if (geminiApiKeyInput) geminiApiKeyInput.focus();
+            });
+
+            aiSearchToggle.addEventListener('change', () => {
+                aiSearchEnabled = aiSearchToggle.checked;
+                sessionStorage.setItem('aiSearchEnabled', JSON.stringify(aiSearchEnabled));
+                updateApiKeySectionVisibility();
+                performSearchAndRender(searchInput.value, currentFilter); // Re-filter/render
+
+                if (aiSearchEnabled && !geminiApiKey) {
+                    showNotification('AI Search enabled. Please provide your Gemini API Key to use this feature.', 'error', 4000);
+                }
+            });
+
+            initializeCandidates();
+        });
     </script>
     <footer class="bg-gray-900 text-gray-400 text-center py-6 mt-10">
         <p class="text-sm">
+            AI Search powered by Google Gemini. Results depend on the model's interpretation of the query and provided data.
+        </p>
+        <p class="text-sm mt-2">
             Disclaimer: The data in this project is for informational purposes only and is based on publicly available information. While efforts were made to ensure accuracy, there may be discrepancies due to the nature of manual scraping, AI processing, and the dynamic nature of election-related data. Users are encouraged to verify the information from official sources.
         </p>
         <p class="text-sm mt-4">

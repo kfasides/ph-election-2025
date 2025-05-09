@@ -1,0 +1,1432 @@
+[
+    {
+        "candidate_number": 42,
+        "name": "MATA, DOC MARITES",
+        "political_party": "Independent",
+        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=MATA+DOC+MARITES",
+        "basic_information": {
+            "age": "52 years old",
+            "residence": "Davao City"
+        },
+        "education": [
+            {
+                "degree": "Doctor of Medicine",
+                "institution": "Davao Medical School Foundation"
+            },
+            {
+                "degree": "Pediatric Residency",
+                "institution": "San Pedro Hospital"
+            }
+        ],
+        "job_affiliations": [
+            "Pediatrician",
+            "Social Media Personality",
+            "Former Consultant for Dengue, World Health Organization",
+            "Former Home Visiting Pediatrician for Kitty Duterte",
+            "Former Main Radio Doctor, Davao City Disaster Radio"
+        ],
+        "govt_experience": [
+            "Second Nominee, Kabayan Partylist (2022)",
+            "Consultant, Department of Health (2016-2017)"
+        ],
+        "platforms": [
+            "Healthcare Reform",
+            "Children Welfare",
+            "Free Medical Services",
+            "Stronger Approach vs Dengue"
+        ],
+        "in_favor": [
+            "Anti-Terror Law",
+            "Defending PhilHealth Budget",
+            "K-12 Removal"
+        ],
+        "against": [
+            "Impeachment of VP Sara Duterte"
+        ],
+        "family_members_in_politics": [
+            {
+                "name": "Bong Go",
+                "relation": "Nephew",
+                "position": "Senator of the Philippines"
+            }
+        ],
+        "laws_passed": [],
+        "policy_focus_platforms": []
+    },
+    {
+        "candidate_number": 45,
+        "name": "MENDOZA, HEIDI",
+        "political_party": "Independent",
+        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=MENDOZA+HEIDI",
+        "basic_information": {
+            "age": "61 years old",
+            "residence": "Marikina City"
+        },
+        "education": [
+            {
+                "degree": "Bachelor of Science in Accountancy",
+                "institution": "Sacred Heart College of Lucena City"
+            },
+            {
+                "degree": "Master of Public Administration",
+                "institution": "University of the Philippines Diliman"
+            },
+            {
+                "degree": "Master in National Security Administration",
+                "institution": "National Defense College of the Philippines"
+            }
+        ],
+        "job_affiliations": [
+            "Certified Public Accountant",
+            "Professional Lecturer",
+            "Former External Auditor, Food and Agriculture Organization",
+            "Former External Auditor, World Health Organization",
+            "Former External Auditor, International Labor Organization"
+        ],
+        "govt_experience": [
+            "Commissioner, Commission on Audit (2011 - 2015)",
+            "Undersecretary-General, United Nations Office of Internal Oversight Services (2008 - 2010)"
+        ],
+        "platforms": [
+            "Transparency and Good Governance",
+            "Allocation of more budget to health and education sector",
+            "Push for a Citizens Participatory Audit",
+            "Push for Anti-Corruption policies"
+        ],
+        "in_favor": [
+            "POGO Ban"
+        ],
+        "against": [
+            "Divorce",
+            "Contractualization"
+        ],
+        "family_members_in_politics": [],
+        "laws_passed": [],
+        "policy_focus_platforms": []
+    },
+    {
+        "candidate_number": 46,
+        "name": "MONTEMAYOR JR., JOSE",
+        "political_party": "Independent",
+        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=MONTEMAYOR+JR+JOSE",
+        "basic_information": {
+            "age": "62 years old",
+            "residence": "Sasmuan, Pampanga"
+        },
+        "education": [
+            {
+                "degree": "Bachelor of Science in Medical Technology",
+                "institution": "Far Eastern University"
+            },
+            {
+                "degree": "Doctor of Medicine",
+                "institution": "Far Eastern University"
+            },
+            {
+                "degree": "Bachelor of Laws",
+                "institution": "Philippine Law School"
+            }
+        ],
+        "job_affiliations": [
+            "Lawyer",
+            "Evangelist",
+            "Former Assistant Secretary-General, Philippine Medical Association",
+            "Former Member, Democracy Party of the Philippines",
+            "Legal Counsel and Legal Officer, Philippine Heart Center",
+            "Law Professor, University of Manila",
+            "Law Professor, Polytechnic University of the Philippines",
+            "Consultant, St. Luke's Medical Center",
+            "Consultant, Philippine Heart Center",
+            "Member, Partido Pederal ng Maharlika"
+        ],
+        "govt_experience": [
+            "Presidential Candidate (2022)"
+        ],
+        "platforms": [
+            "Economic Reforms",
+            "Health, Education, and Agricultural Advancement",
+            "Climate Change and Disaster Awareness"
+        ],
+        "in_favor": [],
+        "against": [
+            "Divorce",
+            "Same Sex Marriage",
+            "Death Penalty"
+        ],
+        "family_members_in_politics": [],
+        "laws_passed": [],
+        "policy_focus_platforms": []
+    },
+    {
+        "candidate_number": 18,
+        "name": "CAYETANO, PIA",
+        "political_party": "Nacionalista Party",
+        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=CAYETANO+PIA",
+        "basic_information": {
+            "age": "58 years old",
+            "residence": "Fort Bonifacio, Taguig City"
+        },
+        "education": [
+            {
+                "degree": "Bachelor of Arts in Economics",
+                "institution": "University of the Philippines - Diliman"
+            },
+            {
+                "degree": "Bachelor of Laws",
+                "institution": "University of the Philippines College of Laws"
+            }
+        ],
+        "job_affiliations": [
+            "Lawyer",
+            "Member, Alyansa para sa Bagong Pilipinas",
+            "Host, Cayetano in Action with Boy Abunda",
+            "Member, Nacionalista Party (2007 - present)",
+            "Member, Lakas-CMD (2004-2007)",
+            "Spokesperson, Samahan Laban sa Kontra Dengue",
+            "Spokesperson",
+            "Philippine Cancer Society",
+            "Founder, Companero Rene Cayetano Foundation",
+            "Founder, Pinay In Action"
+        ],
+        "govt_experience": [
+            "Senator (2004-2016; 2019 - present)",
+            "Representative, Taguig 2nd District (2016-2019)"
+        ],
+        "platforms": [
+            "Women Empowerment",
+            "Reproductive Health",
+            "Health policies Sports, Health & Nutrition"
+        ],
+        "in_favor": [
+            "Divorce",
+            "Charter Change",
+            "Anti-Terror Law",
+            "Death Penalty"
+        ],
+        "against": [
+            "Mandatory ROTC"
+        ],
+        "family_members_in_politics": [
+            {
+                "name": "Alan Peter Cayetano",
+                "relation": "Brother",
+                "position": "Senator of the Philippines"
+            },
+            {
+                "name": "Lino Cayetano",
+                "relation": "Brother",
+                "position": "Former Taguig City Mayor"
+            },
+            {
+                "name": "Lani Cayetano",
+                "relation": "Sister-in-law",
+                "position": "Mayor of Taguig City"
+            }
+        ],
+        "laws_passed": [
+            "RA 9512 - Environmental Awareness and Education Act",
+            "RA 10028 Expanded Breastfeeding Promotion Act",
+            "RA 10354 - Reproductive Health Act",
+            "RA 10351 - Sin Tax Reform Act",
+            "RA 11590 - POGO Ban"
+        ],
+        "policy_focus_platforms": []
+    },
+    {
+        "candidate_number": 53,
+        "name": "QUIBOLOY, APOLLO",
+        "political_party": "Independent",
+        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=QUIBOLOY+APOLLO",
+        "basic_information": {
+            "age": "74 years old",
+            "residence": "Davao City"
+        },
+        "education": [
+            {
+                "degree": "Theology",
+                "institution": "United Pentecostal Bible Institute (Apostolic Center of Theological Studies)"
+            }
+        ],
+        "job_affiliations": [
+            "Evangelist / Preacher",
+            "Guest 2025 Senatorial Candidate, PDP-Laban",
+            "Member, Workers and Peasants Party - Talentino Wing",
+            "Spiritual Adviser, Former President Rodrigo Duterte",
+            "Founder, Kingdom of Jesus Christ - The Name Above Every Name Inc.",
+            "Founder, Sonshine Media Network International",
+            "Founder, Sonshine Philippines Movement",
+            "Founder, Children's Joy Foundation Inc.",
+            "Founder & President, Jose Maria College",
+            "Former Member, United Pentecostal Church of the Philippines"
+        ],
+        "govt_experience": [],
+        "platforms": [
+            "Make the Philippines a first world country",
+            "Push for anti-corruption policies",
+            "War vs Communism",
+            "Establishment of a 'Truth Commission'"
+        ],
+        "in_favor": [
+            "Death Penalty",
+            "ABS-CBN Shutdown"
+        ],
+        "against": [
+            "Divorce",
+            "Impeachment of VP Sara Duterte"
+        ],
+        "family_members_in_politics": [],
+        "laws_passed": [],
+        "policy_focus_platforms": []
+    },
+    {
+        "candidate_number": 23,
+        "name": "DORINGO, NANAY MIMI",
+        "political_party": "Makabayang Koalisyon ng Mamamayan",
+        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=DORINGO+NANAY+MIMI",
+        "basic_information": {
+            "age": "48 years old",
+            "residence": "Caloocan City"
+        },
+        "education": [],
+        "job_affiliations": [
+            "National Treasurer, Anakpawis (2022 - Present)",
+            "Secretary-General, Kadamay (2020 - Present)",
+            "Member, Makabayang Koalisyon ng Mamamayan",
+            "National Spokesperson, Kadamay (2018 - Present)",
+            "President, Kadamay Caloocan (2017)",
+            "President, Women Wise-Caloocan (2015)",
+            "Chairman of the Board, CamBag 1 Bldg. H Homeowners Association",
+            "Factory Worker, Ever Bilena Cosmetics Inc (1993 - 2008)"
+        ],
+        "govt_experience": [],
+        "platforms": [
+            "Strengthening Urban Poor Rights",
+            "Women Empowerment",
+            "Free and Affordable housing"
+        ],
+        "in_favor": [
+            "Divorce",
+            "SOGIE Equality Bill",
+            "Anti-Dynasty Bill",
+            "Impeachment of VP Sara Duterte"
+        ],
+        "against": [
+            "Anti-Terror Law",
+            "Death Penalty",
+            "Mandatory ROTC",
+            "Contractualization",
+            "Charter Change"
+        ],
+        "family_members_in_politics": [],
+        "laws_passed": [],
+        "policy_focus_platforms": []
+    },
+    {
+        "candidate_number": 40,
+        "name": "MARQUEZ, NORMAN",
+        "political_party": "Independent",
+        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=MARQUEZ+NORMAN",
+        "basic_information": {
+            "age": "63 years old",
+            "residence": "Quezon City"
+        },
+        "education": [
+            {
+                "degree": "High School",
+                "institution": "Quezon City High School"
+            },
+            {
+                "degree": "Bachelor of Science in Management Engineering",
+                "institution": "Ateneo de Manila University"
+            }
+        ],
+        "job_affiliations": [
+            "Animal Welfare Advocate",
+            "Graphic Designer, NormArt",
+            "Senior Advocate, Baguio Animal Welfare (2016 - present)"
+        ],
+        "govt_experience": [],
+        "platforms": [],
+        "in_favor": [
+            "Animal Welfare",
+            "Healthcare Reform"
+        ],
+        "against": [],
+        "family_members_in_politics": [],
+        "laws_passed": [],
+        "policy_focus_platforms": []
+    },
+    {
+        "candidate_number": 13,
+        "name": "BROSAS, ARLENE",
+        "political_party": "Makabayang Koalisyon ng Mamamayan",
+        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=BROSAS+ARLENE",
+        "basic_information": {
+            "age": "48 years old",
+            "residence": "Quezon City"
+        },
+        "education": [
+            {
+                "degree": "Bachelor of Arts in Philippine Studies",
+                "institution": "University of the Philippines - Diliman"
+            }
+        ],
+        "job_affiliations": [
+            "Member, Makabayang Koalisyon ng Mamamayan",
+            "Executive Director, Akap sa Bata ng mga Guro-Kalinga",
+            "Convenor, Anti-Child Pornography Alliance",
+            "Convenor, #SavePCMC Alliance",
+            "Convenor, Save Nena Campaign Against Anti-online Sexual Abuse and Exploitation",
+            "Former Teacher, UP Baguio",
+            "Former Teacher UP Manila"
+        ],
+        "govt_experience": [
+            "Representative, Gabriela Women's Party-list (2016 - present)"
+        ],
+        "platforms": [
+            "Women Empowerment",
+            "Children's Protection",
+            "Strengthening LGBTQIA+ rights",
+            "Climate Justice"
+        ],
+        "in_favor": [
+            "Divorce",
+            "SOGIE Bill",
+            "POGO Ban",
+            "Impeachment of VP Sara Duterte"
+        ],
+        "against": [
+            "Charter Change",
+            "Death Penalty",
+            "Anti-Terror Law",
+            "Mandatory ROTC",
+            "Contractualization",
+            "Jeepney Phaseout"
+        ],
+        "family_members_in_politics": [],
+        "laws_passed": [
+            "RA 11313 - Safe Spaces Act",
+            "RA 11648 - Increasing the Age for Statutory Rape",
+            "RA 11861 - Expanded Solo Parent Welfare Act",
+            "RA 11058 - Occupational Safety and Health Law",
+            "RA 11210 - Expanded Maternity Leave Law"
+        ],
+        "policy_focus_platforms": []
+    },
+    {
+        "candidate_number": 4,
+        "name": "ANDAMO, NARS ALYN",
+        "political_party": "Makabayang Koalisyon ng Mamamayan",
+        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=ANDAMO+NARS+ALYN",
+        "basic_information": {
+            "age": "62 years old",
+            "residence": "Dasmariñas Cavite"
+        },
+        "education": [
+            {
+                "degree": "Bachelor of Science in Nursing",
+                "institution": "Far Eastern University"
+            }
+        ],
+        "job_affiliations": [
+            "Registered Nurse",
+            "Secretary-General, Filipino Nurses United",
+            "Member",
+            "Makabayang Koalisyon ng Mamamayan"
+        ],
+        "govt_experience": [],
+        "platforms": [],
+        "in_favor": [],
+        "against": [
+            "Contractualization",
+            "Anti-Terror Law",
+            "Jeepney Phaseout"
+        ],
+        "family_members_in_politics": [],
+        "laws_passed": [],
+        "policy_focus_platforms": [
+            "Allot 5% of the gross domestic product to the annual health budget",
+            "Free medical services",
+            "Increase salary for healthworkers to P50,000"
+        ]
+    },
+    {
+        "candidate_number": 17,
+        "name": "CASTRO, TEACHER FRANCE",
+        "political_party": "Makabayang Koalisyon ng Mamamayan",
+        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=CASTRO+TEACHER+FRANCE",
+        "basic_information": {
+            "age": "58 years old",
+            "residence": "Valenzuela City"
+        },
+        "education": [
+            {
+                "degree": "Bachelor of Science in Education major in Mathematics",
+                "institution": "Philippine Normal University"
+            }
+        ],
+        "job_affiliations": [
+            "Licensed Professional Teacher",
+            "Member, Makabayang Koalisyon ng Mamamayan",
+            "Awardee, Labe Velasquez Trade Union Rights Award",
+            "Awardee, Arthur Svensson International Prize for Trade Union Rights",
+            "Former Secretary-General, Alliance of Concerned Teachers",
+            "Former Member, League of Filipino Students"
+        ],
+        "govt_experience": [
+            "Representative, ACT Teachers Party-list (2016 - present)"
+        ],
+        "platforms": [
+            "Human rights",
+            "Increasing salary for teachers",
+            "Educational reforms"
+        ],
+        "in_favor": [
+            "Divorce",
+            "SOGIE Bill",
+            "Youth Empowerment",
+            "Impeachment of VP Sara Duterte"
+        ],
+        "against": [
+            "Charter Change",
+            "Death Penalty",
+            "Anti-Terror Law",
+            "Mandatory ROTC",
+            "Contractualization",
+            "Jeepney Phaseout"
+        ],
+        "family_members_in_politics": [],
+        "laws_passed": [
+            "Republic Act 11106: The Filipino Sign Language Act",
+            "Republic Act 10931: Universal Access Quality Tertiary Education Act",
+            "Republic Act 10969: Free Irrigation Service Act",
+            "Republic Act 11448: Transnational Higher Education Act",
+            "Republic Act 11696: Marawi Siege Victims Compensation Act",
+            "Republic Act 11977: Kabalikat sa Paguturo Act"
+        ],
+        "policy_focus_platforms": []
+    },
+    {
+        "candidate_number": 35,
+        "name": "LAPID, LITO",
+        "political_party": "Nationalist People's Coalition",
+        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=LAPID+LITO",
+        "basic_information": {
+            "age": "69 years old",
+            "residence": "Porac, Pampanga"
+        },
+        "education": [
+            {
+                "degree": "Grade School",
+                "institution": "Porac Central School"
+            },
+            {
+                "degree": "High School",
+                "institution": "St. Catherine Academy"
+            }
+        ],
+        "job_affiliations": [
+            "Former Stuntman",
+            "Member, Alyansa para sa Bagong Pilipinas (2024 - present)",
+            "Member, Nationalist People's Coalition (1992 - 1998, 2018 - present)",
+            "Member, Lakas-CMD (1998 - 2012)",
+            "Actor - Director (1968 - present)"
+        ],
+        "govt_experience": [
+            "Senator (2004 - 2016; 2019 - present)",
+            "Senator-Judge, Impeachment of CJ Corona (2012)",
+            "Makati Mayoral Candidate (2007)",
+            "Governor, Province of Pampanga (1995 - 2004)",
+            "Vice Governor, Province of Pampanga (1992 - 1995)"
+        ],
+        "platforms": [],
+        "in_favor": [
+            "Anti-Terror Law",
+            "Death Penalty",
+            "Protection of WPS"
+        ],
+        "against": [
+            "SOGIE Equality Bill",
+            "ABS-CBN Shutdown",
+            "POGO Ban",
+            "Jeepney Phaseout"
+        ],
+        "family_members_in_politics": [
+            {
+                "name": "Mark Lapid",
+                "relation": "Son",
+                "position": "Chief Operating Officer, TIEZA"
+            }
+        ],
+        "laws_passed": [
+            "Republic Act 9296 - The Meat Inspection Act",
+            "Republic Act 9999 - Free Legal Assistance Act",
+            "Republic Act 10157 - Kindergarten Education Act",
+            "Republic Act 10367 - Biometrics Law",
+            "Republic Act 10645 - Expanded Senior Citizens Act"
+        ],
+        "policy_focus_platforms": []
+    },
+    {
+        "candidate_number": 16,
+        "name": "CASIÑO, TEDDY",
+        "political_party": "Makabayang Koalisyon ng Mamamayan",
+        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=CASIÑO+TEDDY",
+        "basic_information": {
+            "age": "55 years old",
+            "residence": "Makati City"
+        },
+        "education": [
+            {
+                "degree": "Grade School",
+                "institution": "De La Salle University"
+            },
+            {
+                "degree": "High School",
+                "institution": "La Salle Green Hills"
+            },
+            {
+                "degree": "Bachelor of Arts in Sociology",
+                "institution": "University of the Philippines - Los Baños"
+            }
+        ],
+        "job_affiliations": [
+            "Writer",
+            "Member, Makabayang Koalisyon ng Mamamayan",
+            "Chairperson, Bagong Alyansang Makabayan",
+            "Former Member, Kilusang Mayo Uno",
+            "Former President, Colleges' Editors Guild of the Philippines"
+        ],
+        "govt_experience": [
+            "Senatorial Candidate (2013)",
+            "Representative, Bayan Muna Party-list (2004 - 2013)"
+        ],
+        "platforms": [
+            "Increasing minimum wage",
+            "Lowering prices",
+            "Social Justice"
+        ],
+        "in_favor": [
+            "Divorce",
+            "SOGIE Bill",
+            "Youth Empowerment",
+            "Impeachment of VP Sara Duterte"
+        ],
+        "against": [
+            "Charter Change",
+            "Death Penalty",
+            "Anti-Terror Law",
+            "Mandatory ROTC",
+            "Contractualization",
+            "Jeepney Phaseout"
+        ],
+        "family_members_in_politics": [],
+        "laws_passed": [
+            "Republic Act 9406: The Public Attorneys Act",
+            "Republic Act 9504: The Tax Relief Act",
+            "Republic Act 9745: The Anti-Torture Act"
+        ],
+        "policy_focus_platforms": []
+    },
+    {
+        "candidate_number": 21,
+        "name": "DE GUZMAN, KA LEODY",
+        "political_party": "Partido Lakas ng Masa",
+        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=DE+GUZMAN+KA+LEODY",
+        "basic_information": {
+            "age": "65 years old",
+            "residence": "Cainta, Rizal"
+        },
+        "education": [
+            {
+                "degree": "High School",
+                "institution": "Naujan Academy - Oriental Mindoro"
+            },
+            {
+                "degree": "Bachelor of Science in Custom Administration",
+                "institution": "Philippine Maritime Institute"
+            }
+        ],
+        "job_affiliations": [
+            "Labor Activist",
+            "President, Partido Lakas ng Masa",
+            "Chairperson, Bukluran ng Manggagawang Pilipino (2018-present)",
+            "Board of Trustee, PhilRights (2018)",
+            "Board of Trustee, Bulig Visayas (2015-present)",
+            "Vice President, AROBIFU (2008-present)",
+            "Founding Member, Partido ng Manggagawa",
+            "Former Employee, Aris Philippines Inc."
+        ],
+        "govt_experience": [
+            "Presidential Candidate (2022)",
+            "Senatorial Candidate (2019)",
+            "Nominee, Sanlakas Partylist (2016)"
+        ],
+        "platforms": [
+            "Increase of Minimum Wage",
+            "End all forms of contractualization",
+            "Use renewable energy over fossil fuels",
+            "Push for an anti-political dynasty law"
+        ],
+        "in_favor": [
+            "Divorce",
+            "Same-Sex Marriage",
+            "Decriminalization of Abortion",
+            "Anti-Dynasty Law",
+            "Legalization of Medical Marijuana"
+        ],
+        "against": [
+            "Death Penalty",
+            "Anti-Terror Law"
+        ],
+        "family_members_in_politics": [],
+        "laws_passed": [],
+        "policy_focus_platforms": []
+    },
+    {
+        "candidate_number": 43,
+        "name": "MATULA, ATTY SONNY",
+        "political_party": "Workers' and Peasants' Partylist",
+        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=MATULA+ATTY+SONNY",
+        "basic_information": {
+            "age": "59 years old",
+            "residence": "Agusan del Sur"
+        },
+        "education": [
+            {
+                "degree": "Political Science",
+                "institution": "Mindanao State University"
+            },
+            {
+                "degree": "Bachelor of Laws",
+                "institution": "Manuel L. Quezon University"
+            }
+        ],
+        "job_affiliations": [
+            "Lawyer",
+            "National President, Federation of Free Workers - International Trade Union Confederation",
+            "Chairman, NAGKAISA Labor Coalition",
+            "Member, Workers and Peasants' Partylist",
+            "Workers' Adviser, World Banks Mindanao Jobs Report",
+            "Lecturer, Manuel L. Quezon University - School of Law",
+            "Lecturer, University of Manila - College of Law",
+            "Member, National Tripartite Industrial Peace Council",
+            "Member, Knights of Columbus",
+            "Member, Tropang Angat Leni-Kiko (2022)"
+        ],
+        "govt_experience": [
+            "Senatorial Candidate (2019 & 2022)",
+            "Commissioner, Social Security System (2006 - 2010)",
+            "Executive Director, Presidential Anti-Graft Commission (2001 - 2002)",
+            "Workers' Representative, Social Security Commission (2001 - 2002)"
+        ],
+        "platforms": [
+            "Minimum Wage Increase",
+            "Push for the Security of Tenure Law",
+            "Food Security",
+            "Protection for OFWs"
+        ],
+        "in_favor": [
+            "POGO Ban",
+            "Charter Change",
+            "Legalization of Medical Marijuana"
+        ],
+        "against": [
+            "Divorce",
+            "Same Sex Marriage",
+            "Death Penalty",
+            "Jeepney Phaseout",
+            "Contractualization"
+        ],
+        "family_members_in_politics": [],
+        "laws_passed": [],
+        "policy_focus_platforms": []
+    },
+    {
+        "candidate_number": 25,
+        "name": "ESPIRITU, LUKE",
+        "political_party": "Partido Lakas ng Masa",
+        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=ESPIRITU+LUKE",
+        "basic_information": {
+            "age": "50 years old",
+            "residence": "Bacolod City"
+        },
+        "education": [
+            {
+                "degree": "Basic Education",
+                "institution": "Ateneo de Manila (1992)"
+            },
+            {
+                "degree": "Basic Education",
+                "institution": "La Salle Greenhills (1988)"
+            },
+            {
+                "degree": "Basic Education",
+                "institution": "La Salle Bacolod (1981-1986)"
+            },
+            {
+                "degree": "Juris Doctor",
+                "institution": "Ateneo De Manila School of Law (2002)"
+            },
+            {
+                "degree": "Bachelor of Arts in Communication",
+                "institution": "Ateneo de Manila University (1997)"
+            }
+        ],
+        "job_affiliations": [
+            "Lawyer",
+            "Former National President, Spokesperson, and Current Labor Organizer of Bukluran ng Manggagawang Pilipino (BMP)",
+            "Former National President of the Solidarity of Unions in the Philippines for Empowerment and Reforms (SUPER Federation)",
+            "National Executive Council Member (2008-2013)"
+        ],
+        "govt_experience": [],
+        "platforms": [
+            "Workers' Rights",
+            "Wealth Tax",
+            "Repeal TRAIN and E-VAT",
+            "Abolish Regional Wage Boards",
+            "Stronger Protection of Unionism",
+            "Fossil-fuel phase out with just transition",
+            "Repeal Anti-Terror Law",
+            "Repeal Rice Tariffication law and complete agrarian reform",
+            "Public employment guarantee",
+            "750+ national minimum wage"
+        ],
+        "in_favor": [
+            "Government subsidies for MSMEs to implement wage increases",
+            "Legalization of divorce",
+            "SOGIE Bill",
+            "Reproductive rights, including access to abortion"
+        ],
+        "against": [],
+        "family_members_in_politics": [],
+        "laws_passed": [],
+        "policy_focus_platforms": []
+    },
+    {
+        "candidate_number": 66,
+        "name": "VILLAR, CAMILLE",
+        "political_party": "Nacionalista Party",
+        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=VILLAR+CAMILLE",
+        "basic_information": {
+            "age": "39 years old",
+            "residence": "Las Piñas City"
+        },
+        "education": [
+            {
+                "degree": "Bachelor of Science in Business Management",
+                "institution": "Ateneo de Manila University"
+            },
+            {
+                "degree": "Masters in Business Administration",
+                "institution": "IESE Business School - Barcelona, Spain"
+            }
+        ],
+        "job_affiliations": [
+            "Businesswoman",
+            "Member, Nacionalista Party",
+            "Managing Director, Vista Land and Landscapes",
+            "Former COO, Brittany Corporation",
+            "Co-host, Wowowillie, TV5, (2013)"
+        ],
+        "govt_experience": [
+            "Representative, Las Piñas Lone District (2019 - present)"
+        ],
+        "platforms": [
+            "Mental Health",
+            "Better Disaster Response",
+            "Women, Youth, and LGBT Empowerment",
+            "Social Welfare"
+        ],
+        "in_favor": [
+            "SOGIE Bill",
+            "Protection of WPS",
+            "ABS-CBN Shutdown"
+        ],
+        "against": [],
+        "family_members_in_politics": [
+            {
+                "name": "Manny Villar",
+                "relation": "Father",
+                "position": "Former Senate President"
+            },
+            {
+                "name": "Cynthia Villar",
+                "relation": "Mother",
+                "position": "Senator of the Philippines"
+            },
+            {
+                "name": "Mark Villar",
+                "relation": "Brother",
+                "position": "Senator of the Philippines"
+            },
+            {
+                "name": "Imelda Aguilar",
+                "relation": "Aunt",
+                "position": "Mayor of Las Piñas City"
+            }
+        ],
+        "laws_passed": [
+            "House Bill 9808 - Batang Magaling Act",
+            "House Bill 9581 - E-book for the barangay Program Act",
+            "House Bill 9810 - Women's Business Enterprise Act",
+            "House Bill 9895 - Tax Deduction for Guardians of Children with Special Needs"
+        ],
+        "policy_focus_platforms": []
+    },
+    {
+        "candidate_number": 14,
+        "name": "CABONEGRO, ROY",
+        "political_party": "Democratic Party of the Philippines",
+        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=CABONEGRO+ROY",
+        "basic_information": {
+            "age": "50 years old",
+            "residence": "Silang, Cavite"
+        },
+        "education": [
+            {
+                "degree": "Bachelor of Arts in Political Science",
+                "institution": "De La Salle University"
+            }
+        ],
+        "job_affiliations": [
+            "Environmentalist",
+            "Chairperson, Makakalikasan Marketing Cooperative",
+            "President, Makakalikasan Green Governance Center Inc.",
+            "Member, Democratic Party of the Philippines",
+            "Former Member, Partido Lakas ng Masa",
+            "Regional Facilitator for Asia, Sustainability Watch (2007-2011)"
+        ],
+        "govt_experience": [
+            "Senatorial Candidate (2022)",
+            "Human Rights Observatory Specialist, Commission on Human Rights (2018-2019)",
+            "Organizational Development Consultant, DENR Manila Bay Coordinating Office (2016-2017)"
+        ],
+        "platforms": [
+            "Environmental protection",
+            "Climate Justice",
+            "Strengthening the rights of Indigenous People",
+            "Pushing for \"Organic Food Sovereignty\""
+        ],
+        "in_favor": [
+            "Divorce",
+            "SOGIE Bill",
+            "POGO Ban",
+            "Independent Foreign Policy",
+            "Anti-Political Dynasty Law"
+        ],
+        "against": [
+            "Charter Change",
+            "Death Penalty",
+            "Mandatory ROTC",
+            "Contractualization"
+        ],
+        "family_members_in_politics": [],
+        "laws_passed": [],
+        "policy_focus_platforms": []
+    },
+    {
+        "candidate_number": 60,
+        "name": "TAPADO, MICHAEL",
+        "political_party": "Partido Maharlika",
+        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=TAPADO+MICHAEL",
+        "basic_information": {
+            "age": "55 years old",
+            "residence": "Las Piñas City"
+        },
+        "education": [
+            {
+                "degree": "Bachelor of Science in Business Administration",
+                "institution": "Philippine School of Business Administration - QC"
+            }
+        ],
+        "job_affiliations": [
+            "President, Bayani ng Bagong Pilipinas",
+            "Chairman, Bangon Bayan Muli - NCR",
+            "Business Mentor, GO Negosyo",
+            "CEO, Michael B. Tapado Insurance Agency & Financial Consultancy Inc.",
+            "Financial Wealth Officer",
+            "FWD Life Philippines Business",
+            "Consultant, Kakampi Group of OFWs Worldwide",
+            "Member, Rotary International"
+        ],
+        "govt_experience": [],
+        "platforms": [
+            "Entrepreneurship",
+            "Youth Development",
+            "Support to MSMEs"
+        ],
+        "in_favor": [],
+        "against": [],
+        "family_members_in_politics": [],
+        "laws_passed": [],
+        "policy_focus_platforms": []
+    },
+    {
+        "candidate_number": 28,
+        "name": "GO, BONG",
+        "political_party": "PDP - LABAN",
+        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=GO+BONG",
+        "basic_information": {
+            "age": "50 years old",
+            "residence": "Lupon, Davao Oriental"
+        },
+        "education": [
+            {
+                "degree": "High School",
+                "institution": "La Salle Green Hills"
+            },
+            {
+                "degree": "Management Degree",
+                "institution": "De La Salle \"did not finish\""
+            },
+            {
+                "degree": "Bachelor of Arts in Marketing",
+                "institution": "Ateneo de Davao University"
+            }
+        ],
+        "job_affiliations": [
+            "Auditor, PDP-Laban",
+            "Member, Federalismo ng Dugong Dakilang Samahan (2021)",
+            "Member, Hugpong ng Pagbabago (2019)",
+            "Former Player, Maharlika Pilipinas Basketball League"
+        ],
+        "govt_experience": [
+            "Senator (2019-present)",
+            "Head, Presidential Management Staff (2016-2018)",
+            "Special Assistant to the President (2016-2018)",
+            "Executive Assistant to Former Mayor Rodrigo Duterte (1998-2016)"
+        ],
+        "platforms": [
+            "Peace and order",
+            "War vs drugs",
+            "Sports, Health, and Nutrition",
+            "Youth Development"
+        ],
+        "in_favor": [
+            "Same-sex Union",
+            "Anti-Terror Law",
+            "Death Penalty",
+            "Mandatory ROTC"
+        ],
+        "against": [
+            "Divorce",
+            "Legalization of Medical Marijuana",
+            "Impeachment of VP Sara Duterte"
+        ],
+        "family_members_in_politics": [
+            {
+                "name": "Rodrigo Duterte",
+                "relation": "Former Boss",
+                "position": "Former President of the Philippines"
+            }
+        ],
+        "laws_passed": [
+            "Republic Act 11463-Malasakit Centers Act",
+            "Republic Act 11641-Department of Migrant Workers Act",
+            "Republic Act 11224-Service Contract Recognition Act",
+            "Republic Act 11861-Expanded Solo Parents Act",
+            "Republic Act 11589-Bureau of Fire Protection Modernization Act"
+        ],
+        "policy_focus_platforms": []
+    },
+    {
+        "candidate_number": 29,
+        "name": "GONZALES, NORBERTO",
+        "political_party": "PARTIDO DEMOKRATIKO SOSYALISTA NG PILIPINAS",
+        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=GONZALES+NORBERTO",
+        "basic_information": {
+            "age": "77 years old",
+            "residence": "Balanga, Bataan"
+        },
+        "education": [
+            {
+                "degree": "Bachelor of Science in Pre-Medicine",
+                "institution": "Ateneo de Davao University"
+            },
+            {
+                "degree": "Master in National Security Administration",
+                "institution": "National Defense College of the Philippines"
+            }
+        ],
+        "job_affiliations": [
+            "President & Chairman, Partido Demokratiko Sosyalista ng Pilipinas"
+        ],
+        "govt_experience": [
+            "Presidential Candidate (2022)",
+            "Secretary, Department of National Defense (2007; 2000-2010)",
+            "National Security Adviser (2005-2007)",
+            "Chief of Staff of the President (2004-2005)",
+            "Presidential Adviser for Special Concerns (2001-2004)",
+            "Peace Panel Member, MNLF Peace Talks (1995)"
+        ],
+        "platforms": [
+            "Reformation of the Department of Agriculture",
+            "Parliamentary System Transition",
+            "Independent Foreign Policy"
+        ],
+        "in_favor": [
+            "Same-sex Union",
+            "Death Penalty"
+        ],
+        "against": [
+            "Divorce",
+            "War vs Drugs"
+        ],
+        "family_members_in_politics": [],
+        "laws_passed": [],
+        "policy_focus_platforms": []
+    },
+    {
+        "candidate_number": 32,
+        "name": "JOSE, RELLY JR.",
+        "political_party": "KILUSANG BAGONG LIPUNAN",
+        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=JOSE+RELLY+JR",
+        "basic_information": {
+            "age": "56 years old",
+            "residence": "Malate, Manila"
+        },
+        "education": [
+            {
+                "degree": "High School",
+                "institution": "Notre Dame of Dadiangas University - Lagao Boys"
+            },
+            {
+                "degree": "College",
+                "institution": "John B. Lacson Foundation Maritime University"
+            }
+        ],
+        "job_affiliations": [
+            "Seafarer",
+            "President, GMM Global Maritime Manila INC. (2018 - present)",
+            "Member, Kilusang Bagong Lipunan",
+            "Member, Manila Sports Club",
+            "Consultant, Executive Board, John B. Lacson Foundation Maritime University"
+        ],
+        "govt_experience": [],
+        "platforms": [],
+        "in_favor": [
+            "Protection of WPS"
+        ],
+        "against": [],
+        "family_members_in_politics": [],
+        "laws_passed": [],
+        "policy_focus_platforms": [
+            "Support for OFWs",
+            "Advocate for Marine Workers' Rights",
+            "Empowerment of the Maritime Industry"
+        ]
+    },
+    {
+        "candidate_number": 26,
+        "name": "FLORANDA, MODY PISTON",
+        "political_party": "Makabayang Koalisyon ng Mamamayan",
+        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=FLORANDA+MODY+PISTON",
+        "basic_information": {
+            "age": "58 years old",
+            "residence": "Quezon City"
+        },
+        "education": [],
+        "job_affiliations": [
+            "Jeepney Driver",
+            "National President, Pagkakaisa ng mga Samahan ng Tsuper at Operator Nationwide (PISTON)",
+            "Member, Makabayang Koalisyon ng Mamamayan"
+        ],
+        "govt_experience": [],
+        "platforms": [
+            "Defending transport strike workers' rights",
+            "Support for local manufacturing for new affordable and quality jeepneys",
+            "Removal of taxes in oil"
+        ],
+        "in_favor": [
+            "Divorce",
+            "SOGIE Equality Bill",
+            "Anti-Dynasty Bill",
+            "Impeachment of VP Sara Duterte"
+        ],
+        "against": [
+            "Anti-Terror Law",
+            "Death Penalty",
+            "Mandatory ROTC",
+            "Contractualization",
+            "Jeepney Phaseout"
+        ],
+        "family_members_in_politics": [],
+        "laws_passed": [],
+        "policy_focus_platforms": []
+    },
+    {
+        "candidate_number": 33,
+        "name": "LACSON, PING",
+        "political_party": "Independent",
+        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=LACSON+PING",
+        "basic_information": {
+            "age": "76 years old",
+            "residence": "Muntinlupa City"
+        },
+        "education": [
+            {
+                "degree": "High School",
+                "institution": "Imus Institute"
+            },
+            {
+                "degree": "Bachelor of Science Philippine Military Academy"
+            },
+            {
+                "degree": "Master in Government Management",
+                "institution": "Pamantasan ng Lungsod ng Maynila"
+            }
+        ],
+        "job_affiliations": [
+            "Member, Alyansa sa Bagong Pilipinas (2024 - present)",
+            "Chairman, Partido para sa Demokratikong Reporma (2021 - 2022)",
+            "Member, Koalisyon ng Daang Matuwid (2016)",
+            "Member, Genuine Opposition (2007)",
+            "Member, Laban ng Demokratikong Pilipino (2001 - 2004)",
+            "Chairman, PNP Foundation Inc (2008 - present)"
+        ],
+        "govt_experience": [
+            "Presidential Candidate (2022)",
+            "Senator (2001 - 2016; 2016 - 2022)",
+            "Presidential Assistant on Rehabilitation and Recovery (2013 - 2015)",
+            "Senator-Judge, Impeachment of CJ Corona (2012)",
+            "Presidential Candidate (2004)",
+            "Chief of Police, PNP (1999 - 2001)",
+            "Chief, Presidential Anti-Organized Crime Task Force (1998 - 2001)"
+        ],
+        "platforms": [],
+        "in_favor": [
+            "Divorce",
+            "Same-sex Union",
+            "Anti-Terror Law",
+            "Mandatory ROTC",
+            "Legalization of Medical Marijuana",
+            "Protection of WPS"
+        ],
+        "against": [
+            "Death Penalty"
+        ],
+        "family_members_in_politics": [],
+        "laws_passed": [
+            "Republic Act 9160 - Anti-Money Laundering Act",
+            "Republic Act 9485 - Anti-Red Tape Act",
+            "Republic Act 11469 - Bayanihan to Heal as One Act",
+            "Republic Act 11479 - Anti-Terrorism Act",
+            "Republic Act 11509 - Doktor para sa Bayan Act"
+        ],
+        "policy_focus_platforms": [
+            "Peace and Order",
+            "National Security",
+            "Government Reforms"
+        ]
+    },
+    {
+        "candidate_number": 9,
+        "name": "BINAY, ABBY",
+        "political_party": "NATIONALIST PEOPLE'S COALITION",
+        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=BINAY+ABBY",
+        "basic_information": {
+            "age": "49 years old",
+            "residence": "Makati City"
+        },
+        "education": [
+            {
+                "degree": "Bachelor of Science in Human Ecology",
+                "institution": "University of the Philippines Los Baños"
+            },
+            {
+                "degree": "Bachelor of Laws",
+                "institution": "Ateneo de Manila Law School"
+            }
+        ],
+        "job_affiliations": [
+            "Lawyer",
+            "Member, Alyansa sa Bagong Pilipinas (2024 - present)",
+            "Member, Nationalist People's Coalition (2024 - present)",
+            "Party Leader, Makatiizens United Party (2021-present)",
+            "Member, United Nationalist Alliance (2012-2021)",
+            "Member, PDP-Laban (2006-2012)",
+            "Former Member, MABINI, under Senator Rene Saguisag"
+        ],
+        "govt_experience": [
+            "Mayor, Makati City (2016-present)",
+            "Representative, Makati 2nd District (2007-2016)"
+        ],
+        "platforms": [
+            "Empowerment of Local Government",
+            "Expanding social programs on healthcare and education",
+            "Good governance"
+        ],
+        "in_favor": [
+            "SOGIE Bill",
+            "Amending the Local Government"
+        ],
+        "against": [
+            "Divorce",
+            "Death Penalty"
+        ],
+        "family_members_in_politics": [
+            {
+                "name": "Jejomar Binay",
+                "relation": "Father",
+                "position": "Former Vice President of the Philippines"
+            },
+            {
+                "name": "Luis Campos",
+                "relation": "Husband",
+                "position": "Representative, Makati 2nd District"
+            },
+            {
+                "name": "Nancy Binay",
+                "relation": "Sister",
+                "position": "Senator of the Philippines"
+            }
+        ],
+        "laws_passed": [],
+        "policy_focus_platforms": []
+    },
+    {
+        "candidate_number": 20,
+        "name": "DE ALBAN, ATTORNEY ANGELO",
+        "political_party": "INDEPENDENT",
+        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=DE+ALBAN+ATTORNEY+ANGELO",
+        "basic_information": {
+            "age": "43 years old",
+            "residence": "Meycauayan, Bulacan"
+        },
+        "education": [
+            {
+                "degree": "High School",
+                "institution": "St. Mary's College of Meycauayan Bulacan"
+            },
+            {
+                "degree": "College",
+                "institution": "University of Santo Tomas"
+            }
+        ],
+        "job_affiliations": [
+            "Lawyer, De Alban Law Office (2007 - present)",
+            "Professor, University of Santo Tomas (2008 - present)",
+            "Vice President, St. Philomena School (2008 - present)"
+        ],
+        "govt_experience": [],
+        "platforms": [
+            "Amending the Family Code",
+            "Pushing for road safety policies"
+        ],
+        "in_favor": [
+            "Same Sex Union",
+            "Anti-Dynasty Law"
+        ],
+        "against": [],
+        "family_members_in_politics": [],
+        "laws_passed": [],
+        "policy_focus_platforms": []
+    },
+    {
+        "candidate_number": 59,
+        "name": "SOTTO, TITO",
+        "political_party": "Nationalist People's Coalition",
+        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=SOTTO+TITO",
+        "basic_information": {
+            "age": "76 years old",
+            "residence": "Quezon City"
+        },
+        "education": [
+            {
+                "degree": "Bachelor of Arts in English",
+                "institution": "Colegio de San Juan de Letran"
+            }
+        ],
+        "job_affiliations": [
+            "Member, Alyansa para sa Bagong Pilipinas (2024 - present)",
+            "Chairman, Nationalist People's Coalition (2015 - present)",
+            "Member, Nationalist People's Coalition (2001 - present)",
+            "Member, Laban ng Demokratikong Pilipino (1988 - 2007)",
+            "Member, Kilusang Bagong Lipunan",
+            "Former Vice Chairman, Citizens' Drugwatch Foundation",
+            "Former President, Vice Mayors League of the Philippines",
+            "Former Chairman, Philippine Bowling Federation",
+            "Former Vice President, Vicor Music Corporation",
+            "Founder, VST & Company",
+            "Singer - Composer, Host, Eat Bulaga (1979 - present)",
+            "Actor - Comedian (1974 - present)"
+        ],
+        "govt_experience": [
+            "Vice Presidential Candidate (2022)",
+            "Senate President (2018 - 2022)",
+            "Senator (1992 - 2004; 2010 - 2022)",
+            "Senator-Judge, Impeachment of President Estrada ; CJ Corona (2001; 2012)",
+            "Senatorial Candidate (2007)",
+            "Vice Mayor of Quezon City (1988 - 1992)",
+            "Chairman, Quezon City Anti-Drug Abuse Council (1988 - 1992)"
+        ],
+        "platforms": [
+            "Education",
+            "Youth Development",
+            "Anti-Drug Initiatives"
+        ],
+        "in_favor": [
+            "Anti-Terror Law",
+            "Mandatory ROTC",
+            "Legalization of Medical Marijuana"
+        ],
+        "against": [
+            "Divorce",
+            "Same Sex Marriage",
+            "Death Penalty"
+        ],
+        "family_members_in_politics": [],
+        "laws_passed": [
+            "R.A. 8750 - Seat Belt Use Act",
+            "R.A. 9165 - Comprehensive Dangerous Drugs Act",
+            "R.A. 11037 - Masustansyang Pagkain para sa Batang Pilipino Act",
+            "R.A. 11469 - Bayanihan to Heal as One Act",
+            "R.A. 11509 - Doktor para sa Bayan Act"
+        ],
+        "policy_focus_platforms": []
+    },
+    {
+        "candidate_number": 15,
+        "name": "CAPUYAN, ALLEN",
+        "political_party": "PARTIDO PILIPINO PARA SA PAGBABAGO",
+        "photo": "https://placehold.co/300x300/E0E0E0/757575?text=CAPUYAN+ALLEN",
+        "basic_information": {
+            "age": "62 years old",
+            "residence": "Antipolo, Rizal"
+        },
+        "education": [
+            {
+                "degree": "College",
+                "institution": "Philippine Military Academy"
+            }
+        ],
+        "job_affiliations": [
+            "Retired Military Colonel",
+            "Member, Partido Pilipino sa Pagbabago",
+            "Former Assistant General Manager, Security and Emergency Services, MIAA",
+            "Former Member, Abante Tribung Makabansa"
+        ],
+        "govt_experience": [
+            "Chairperson, National Commission on Indigenous People (2019-2023)",
+            "Executive Director of the National Secretariat, NTF-ELCAC (2019)",
+            "Presidential Adviser for Indigenous Peoples' Concerns (2018)",
+            "Chief of Operations, ISAFF (2004)",
+            "Chief of the Intelligence Service Unit, AFP - Davao City (1997-2000)"
+        ],
+        "platforms": [
+            "Indigenous Peoples' rights empowerment",
+            "Promoting our cultural heritage through tourism",
+            "Fight against terrorism"
+        ],
+        "in_favor": [
+            "Anti-Terror Law"
+        ],
+        "against": [
+            "Abolition of NTF-ELCAC"
+        ],
+        "family_members_in_politics": [],
+        "laws_passed": [],
+        "policy_focus_platforms": []
+    }
+]
