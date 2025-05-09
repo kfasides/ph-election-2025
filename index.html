@@ -337,6 +337,7 @@
         let currentFilter = 'all'; // 'all' or 'selected'
         let currentCandidateIdInModal = null;
         let geminiApiKey = sessionStorage.getItem('geminiApiKey');
+        let currentNavigationList = []; // Holds the list for modal navigation and tab count reference
         let aiSearchEnabled = JSON.parse(sessionStorage.getItem('aiSearchEnabled')) || false;
         let searchDebounceTimer;
 
@@ -521,12 +522,19 @@
             }
         }
 
+        // Function to specifically update the "All Candidates" tab label
+        function updateAllCandidatesTabLabel(count) {
+            allCandidatesTab.innerHTML = `All Candidates (${count})`;
+        }
+
         function renderCandidatesFromList(listToRender, searchTerm = '', currentTab = 'all') {
             candidateGrid.innerHTML = '';
             noResultsMessage.classList.add('hidden');
             noSelectionsMessage.classList.add('hidden');
 
             const candidatesToDisplay = listToRender;
+
+            currentNavigationList = candidatesToDisplay; // Update the list for modal navigation
 
             if (candidatesToDisplay.length === 0) {
                 if (searchTerm) {
@@ -599,23 +607,7 @@
 
                     if (currentFilter === 'selected' && index > -1) {
                         // Re-render "My Senators" tab if an item was removed
-                        const currentSearchTerm = searchInput.value.trim();
-                        const updatedSelectedList = candidatesData.filter(c => selectedSenators.includes(c.candidate_number));
-                        if (currentSearchTerm && geminiApiKey) {
-                            (async () => {
-                                candidateGrid.innerHTML = `<p class="text-center text-gray-400 col-span-full py-10">${spinnerSVG} AI is searching...</p>`;
-                                const aiResults = await searchWithGemini(currentSearchTerm, updatedSelectedList);
-                                renderCandidatesFromList(aiResults, currentSearchTerm, 'selected');
-                            })();
-                        } else if (currentSearchTerm) {
-                            const localFiltered = updatedSelectedList.filter(cand =>
-                                cand.name.toLowerCase().includes(currentSearchTerm.toLowerCase()) ||
-                                cand.political_party.toLowerCase().includes(currentSearchTerm.toLowerCase())
-                            );
-                            renderCandidatesFromList(localFiltered, currentSearchTerm, 'selected');
-                        } else {
-                            renderCandidatesFromList(updatedSelectedList, '', 'selected');
-                        }
+                        performSearchAndRender(searchInput.value.trim(), 'selected');
                     }
 
                 });
@@ -628,6 +620,7 @@
                 card.appendChild(image);
                 card.appendChild(name);
                 card.appendChild(party);
+                card.appendChild(addButton); // Ensure the add button is appended to the card
                 card.appendChild(candidateNumberOverlay);
 
                 card.addEventListener('click', () => openModal(candidate.candidate_number));
@@ -637,34 +630,50 @@
 
         async function performSearchAndRender(searchTerm, tab) {
             searchTerm = searchTerm.trim();
-            let baseList;
-            if (tab === 'selected') {
-                baseList = candidatesData.filter(c => selectedSenators.includes(c.candidate_number));
-            } else { // 'all'
-                baseList = candidatesData;
-            }
+            let listForCurrentTabDisplay;
+            let countForAllCandidatesTab;
 
             if (searchTerm) {
-                let filteredList;
                 if (aiSearchEnabled) {
                     candidateGrid.innerHTML = `<p class="text-center text-gray-400 col-span-full py-10">
                         <span class="inline-block align-middle">${spinnerSVG}</span>
                         <span class="inline-block align-middle ml-2">AI is searching for "${searchTerm}"...</span>
                     </p>`;
-                    filteredList = await searchWithGemini(searchTerm, baseList);
-                } else {
+                    // Perform AI search on all candidates to get the count for "All Candidates" tab
+                    const allCandidatesMatchingAI = await searchWithGemini(searchTerm, candidatesData);
+                    countForAllCandidatesTab = allCandidatesMatchingAI.length;
+
+                    if (tab === 'all') {
+                        listForCurrentTabDisplay = allCandidatesMatchingAI;
+                    } else { // tab is 'selected', filter the AI results further
+                        listForCurrentTabDisplay = allCandidatesMatchingAI.filter(c => selectedSenators.includes(c.candidate_number));
+                    }
+                } else { // Local search
                     const termLower = searchTerm.toLowerCase();
-                    filteredList = baseList.filter(candidate =>
+                    const allCandidatesMatchingLocal = candidatesData.filter(candidate =>
                         candidate.name.toLowerCase().includes(termLower) ||
                         candidate.political_party.toLowerCase().includes(termLower)
                     );
+                    countForAllCandidatesTab = allCandidatesMatchingLocal.length;
+
+                    if (tab === 'all') {
+                        listForCurrentTabDisplay = allCandidatesMatchingLocal;
+                    } else { // tab is 'selected'
+                        const selectedBaseList = candidatesData.filter(c => selectedSenators.includes(c.candidate_number));
+                        listForCurrentTabDisplay = selectedBaseList.filter(candidate => // Filter within selected
+                            candidate.name.toLowerCase().includes(termLower) ||
+                            candidate.political_party.toLowerCase().includes(termLower)
+                        );
+                    }
                 }
-                renderCandidatesFromList(filteredList, searchTerm, tab);
+                updateAllCandidatesTabLabel(countForAllCandidatesTab);
+                renderCandidatesFromList(listForCurrentTabDisplay, searchTerm, tab);
             } else { // No search term
+                updateAllCandidatesTabLabel(candidatesData.length);
+                const baseList = (tab === 'all') ? candidatesData : candidatesData.filter(c => selectedSenators.includes(c.candidate_number));
                 renderCandidatesFromList(baseList, '', tab);
             }
         }
-
 
         function populateModal(candidate) {
             currentCandidateIdInModal = candidate.candidate_number;
@@ -703,6 +712,17 @@
             populateList(modalLawsPassed, candidate.laws_passed, item => item);
 
             updateSelectedCount();
+
+            // Show/hide prev/next buttons based on the current navigation list
+            const prevButton = document.getElementById('prevCandidateButton');
+            const nextButton = document.getElementById('nextCandidateButton');
+            if (currentNavigationList.length <= 1) {
+                prevButton.classList.add('hidden');
+                nextButton.classList.add('hidden');
+            } else {
+                prevButton.classList.remove('hidden');
+                nextButton.classList.remove('hidden');
+            }
         }
 
         function openModal(candidateNumber) {
@@ -722,14 +742,14 @@
 
         function navigateCandidate(direction) {
             if (!currentCandidateIdInModal) return;
-            const currentIndex = candidatesData.findIndex(c => c.candidate_number === currentCandidateIdInModal);
+            const currentIndex = currentNavigationList.findIndex(c => c.candidate_number === currentCandidateIdInModal);
             if (currentIndex === -1) return;
 
             let newIndex = currentIndex + direction;
-            if (newIndex < 0) newIndex = candidatesData.length - 1; // Wrap to last candidate
-            if (newIndex >= candidatesData.length) newIndex = 0; // Wrap to first candidate
+            if (newIndex < 0) newIndex = currentNavigationList.length - 1; // Wrap to last candidate
+            if (newIndex >= currentNavigationList.length) newIndex = 0; // Wrap to first candidate
 
-            openModal(candidatesData[newIndex].candidate_number);
+            openModal(currentNavigationList[newIndex].candidate_number);
         }
 
         // Add swipe functionality
@@ -827,25 +847,21 @@
             performSearchAndRender(searchInput.value, 'selected');
         });
 
-        function updateTabLabels() {
-            const allCandidatesCount = candidatesData.length;
-            allCandidatesTab.innerHTML = `All Candidates (${allCandidatesCount})`;
-        }
-
         async function initializeCandidates() {
             candidatesData = await fetchCandidates();
             if (candidatesData.length === 0) {
                 candidateGrid.innerHTML = '<p class="text-center text-gray-400 mt-10 text-xl col-span-full">Failed to load candidate data or no data available.</p>';
                 noResultsMessage.classList.add('hidden');
-                allCandidatesTab.innerHTML = `All Candidates (0)`;
+                updateAllCandidatesTabLabel(0);
                 mySenatorsTab.classList.remove('active'); // Ensure 'All' tab seems primary
                 allCandidatesTab.classList.add('active');
                 return;
             }
             // Sort candidates by candidate_number
             candidatesData.sort((a, b) => a.candidate_number - b.candidate_number);
-
-            updateTabLabels();
+            currentNavigationList = [...candidatesData]; // Initialize navigation list
+            updateAllCandidatesTabLabel(candidatesData.length); // Initial count for "All Candidates" tab
+            updateSelectedCount(); // Initial count for "My Senators" tab
             performSearchAndRender('', currentFilter); // Initial render
         }
 
