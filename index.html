@@ -247,6 +247,23 @@
                             Next
                         </button>
                     </div>
+                    <div id="aiInsightsSection" class="mt-4 pt-4 border-t border-gray-700">
+                        <h5 class="text-sm font-semibold text-gray-400 mb-3">AI Insights (Experimental):</h5>
+                        <div class="space-y-2 mb-3">
+                            <button id="aiSummarizeDetailsButton" class="w-full action-button bg-teal-600 hover:bg-teal-700 text-white font-semibold py-2 px-3 rounded-lg text-sm disabled:opacity-50">
+                                Summarize Details
+                            </button>
+                            <button id="aiCheckIssuesButton" class="w-full action-button bg-amber-600 hover:bg-amber-700 text-white font-semibold py-2 px-3 rounded-lg text-sm disabled:opacity-50">
+                                Check Negative Issues
+                            </button>
+                            <button id="aiSummarizeContributionsButton" class="w-full action-button bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2 px-3 rounded-lg text-sm disabled:opacity-50">
+                                Summarize Contributions (6 Yrs)
+                            </button>
+                        </div>
+                        <div id="aiModalOutput" class="p-3 bg-gray-700 rounded-md text-sm text-gray-300 min-h-[60px] whitespace-pre-wrap" style="display: none;">
+                            <!-- AI output will appear here -->
+                        </div>
+                    </div>
                 </div>
 
                 <div class="md:w-2/3">
@@ -522,6 +539,114 @@
             }
         }
 
+        async function callGenericTextAI(promptText, outputElement, actionButtonsToToggle) {
+            if (!aiSearchEnabled) {
+                outputElement.textContent = 'AI Search is not enabled. Please enable it and provide an API key.';
+                outputElement.style.display = 'block';
+                showNotification('AI Search is not enabled.', 'error');
+                return;
+            }
+            if (!geminiApiKey) {
+                outputElement.textContent = 'Gemini API Key not set. Please set it in the AI Search section.';
+                outputElement.style.display = 'block';
+                showNotification('Gemini API Key not set for AI features.', 'error');
+                return;
+            }
+
+            actionButtonsToToggle.forEach(btn => btn.disabled = true);
+            outputElement.innerHTML = `<div class="flex items-center justify-center"><span class="inline-block align-middle">${spinnerSVG}</span><span class="ml-2">Processing your request...</span></div>`;
+            outputElement.style.display = 'block';
+
+            const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${geminiApiKey}`;
+
+            try {
+                const response = await fetch(GEMINI_API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: promptText }] }],
+                        generationConfig: { temperature: 0.4 } // Adjust temperature as needed
+                    }),
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    console.error('Gemini API Error:', errorData);
+                    const errorMessage = `Gemini API Error: ${errorData.error?.message || response.statusText}`;
+                    outputElement.textContent = errorMessage;
+                    showNotification(errorMessage, 'error');
+                    return;
+                }
+
+                const data = await response.json();
+                let resultText = '';
+
+                if (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0] && data.candidates[0].content.parts[0].text) {
+                    resultText = data.candidates[0].content.parts[0].text;
+                } else if (data.promptFeedback && data.promptFeedback.blockReason) {
+                    const blockMessage = `Gemini content blocked: ${data.promptFeedback.blockReason?.reason || data.promptFeedback.blockReason}`;
+                    outputElement.textContent = blockMessage;
+                    showNotification(blockMessage, 'error');
+                    console.error('Gemini API Blocked:', data.promptFeedback);
+                    return;
+                } else {
+                    console.error('Unexpected Gemini API response structure:', data);
+                    outputElement.textContent = 'Error parsing Gemini response. Check console.';
+                    showNotification('Error parsing Gemini response. Check console.', 'error');
+                    return;
+                }
+                outputElement.textContent = resultText.trim();
+
+            } catch (error) {
+                console.error('Error calling Gemini API for text generation:', error);
+                outputElement.textContent = 'Failed to connect to AI service for this feature.';
+                showNotification('Failed to connect to AI service.', 'error');
+            } finally {
+                actionButtonsToToggle.forEach(btn => btn.disabled = false);
+            }
+        }
+
+        function handleSummarizeDetails(candidate, outputElement, actionButtons) {
+            const prompt = `
+                You are an AI assistant. Based on the following structured information about a political candidate, provide a concise summary (2-3 paragraphs) highlighting their key qualifications, political party, main platforms, and notable stances.
+
+                Candidate Data:
+                Name: ${candidate.name}
+                Party: ${candidate.political_party}
+                Age: ${candidate.basic_information.age}
+                Residence: ${candidate.basic_information.residence}
+                Education: ${JSON.stringify(candidate.education.map(e => `${e.degree} at ${e.institution}`).join(', ') || "N/A")}
+                Platforms: ${JSON.stringify(candidate.platforms.join(', ') || "N/A")}
+                In Favor Of: ${JSON.stringify(candidate.in_favor.join(', ') || "N/A")}
+                Against: ${JSON.stringify(candidate.against.join(', ') || "N/A")}
+
+                Concise Summary:
+            `;
+            callGenericTextAI(prompt, outputElement, actionButtons);
+        }
+
+        function handleCheckNegativeIssues(candidate, outputElement, actionButtons) {
+            const prompt = `
+                You are an AI assistant providing publicly known information.
+                Regarding the public figure "${candidate.name}", are there any widely reported significant controversies, criminal charges, or major negative issues associated with them based on your knowledge up to your last training data?
+                Please be factual and neutral. If there are notable issues, briefly mention them. If you have no specific information on significant negative issues, please state that.
+                Do not speculate. Focus on information that is generally part of the public record or widely discussed in reputable media.
+
+                Information:
+            `;
+            callGenericTextAI(prompt, outputElement, actionButtons);
+        }
+
+        function handleSummarizeContributions(candidate, outputElement, actionButtons) {
+            const prompt = `
+                You are an AI assistant. Based on the provided data and your general knowledge, summarize the key contributions and achievements of the political candidate "${candidate.name}" primarily focusing on the last 6 years, if information is available for that period.
+                Consider their roles in government, laws they may have influenced or passed (${JSON.stringify(candidate.laws_passed.join(', ') || "N/A")}), and significant initiatives they've been part of from their listed government experience: ${JSON.stringify(candidate.govt_experience.join(', ') || "N/A")}.
+
+                Summary of Contributions (focus on last 6 years):
+            `;
+            callGenericTextAI(prompt, outputElement, actionButtons);
+        }
+
         // Function to specifically update the "All Candidates" tab label
         function updateAllCandidatesTabLabel(count) {
             allCandidatesTab.innerHTML = `All Candidates (${count})`;
@@ -723,6 +848,20 @@
                 prevButton.classList.remove('hidden');
                 nextButton.classList.remove('hidden');
             }
+
+            // AI Insights Section
+            const aiInsightsSection = document.getElementById('aiInsightsSection');
+            const aiModalOutput = document.getElementById('aiModalOutput');
+            const aiSummarizeDetailsButton = document.getElementById('aiSummarizeDetailsButton');
+            const aiCheckIssuesButton = document.getElementById('aiCheckIssuesButton');
+            const aiSummarizeContributionsButton = document.getElementById('aiSummarizeContributionsButton');
+            const aiActionButtons = [aiSummarizeDetailsButton, aiCheckIssuesButton, aiSummarizeContributionsButton];
+
+            aiInsightsSection.style.display = aiSearchEnabled ? 'block' : 'none';
+            aiModalOutput.style.display = 'none'; // Hide output initially
+            aiSummarizeDetailsButton.onclick = () => handleSummarizeDetails(candidate, aiModalOutput, aiActionButtons);
+            aiCheckIssuesButton.onclick = () => handleCheckNegativeIssues(candidate, aiModalOutput, aiActionButtons);
+            aiSummarizeContributionsButton.onclick = () => handleSummarizeContributions(candidate, aiModalOutput, aiActionButtons);
         }
 
         function openModal(candidateNumber) {
@@ -731,6 +870,13 @@
                 populateModal(candidate);
                 modal.classList.remove('hidden');
                 document.body.style.overflow = 'hidden';
+
+                // Reset AI output area
+                const aiModalOutput = document.getElementById('aiModalOutput');
+                if (aiModalOutput) {
+                    aiModalOutput.style.display = 'none';
+                    aiModalOutput.textContent = '';
+                }
             }
         }
 
@@ -883,7 +1029,12 @@
                 aiSearchEnabled = aiSearchToggle.checked;
                 sessionStorage.setItem('aiSearchEnabled', JSON.stringify(aiSearchEnabled));
                 updateApiKeySectionVisibility();
-                performSearchAndRender(searchInput.value, currentFilter); // Re-filter/render
+                // If modal is open, update visibility of AI section
+                if (!modal.classList.contains('hidden') && currentCandidateIdInModal) {
+                    const candidate = candidatesData.find(c => c.candidate_number === currentCandidateIdInModal);
+                    if (candidate) populateModal(candidate); // Re-populate to show/hide AI section
+                }
+                performSearchAndRender(searchInput.value.trim(), currentFilter); // Re-filter/render main grid
 
                 if (aiSearchEnabled && !geminiApiKey) {
                     showNotification('AI Search enabled. Please provide your Gemini API Key to use this feature.', 'error', 4000);
