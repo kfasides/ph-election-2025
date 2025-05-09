@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Philippine Senatorial Candidates 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827; /* Dark background */
+            color: #f3f4f6; /* Light text */
+        }
+        .candidate-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden; /* Ensures image corners are rounded with the card */
+            position: relative; /* Required for absolute positioning of the hover button */
+        }
+        .candidate-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05), 0 0 0 2px #4f46e5; /* Indigo focus ring on hover */
+        }
+        .candidate-card.selected {
+            box-shadow: 0 0 0 3px #3b82f6; /* Blue ring for selected */
+        }
+        .modal {
+            background-color: rgba(0, 0, 0, 0.75); /* Darker overlay for modal */
+        }
+        .modal-content {
+            background-color: #1f2937; /* Darker modal content bg */
+            color: #d1d5db; /* Lighter text for modal content */
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .tab-button {
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+        .tab-button.active {
+            background-color: #4f46e5; /* Indigo */
+            color: white;
+        }
+        .tab-button:not(.active):hover {
+            background-color: #374151; /* Gray-700 for hover on inactive tabs */
+        }
+        .action-button {
+            transition: background-color 0.2s ease;
+        }
+        .action-button:hover {
+            opacity: 0.9;
+        }
+        .search-input {
+            background-color: #374151; /* Gray-700 */
+            border-color: #4b5563; /* Gray-600 */
+            color: #f3f4f6; /* Light text */
+        }
+        .search-input::placeholder {
+            color: #9ca3af; /* Gray-400 */
+        }
+        /* Custom scrollbar for modal content (optional) */
+        .modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        .modal-content::-webkit-scrollbar-track {
+            background: #374151; /* Gray-700 */
+            border-radius: 10px;
+        }
+        .modal-content::-webkit-scrollbar-thumb {
+            background: #4f46e5; /* Indigo */
+            border-radius: 10px;
+        }
+        .modal-content::-webkit-scrollbar-thumb:hover {
+            background: #6366f1; /* Lighter Indigo */
+        }
+        .section-title {
+            border-bottom: 1px solid #4b5563; /* Gray-600 */
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            color: #9ca3af; /* Gray-400 */
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .detail-item {
+            margin-bottom: 0.75rem;
+        }
+        .detail-item strong {
+            color: #e5e7eb; /* Gray-200 */
+        }
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            color: white;
+            font-size: 0.875rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            z-index: 1000; /* Ensure it's above other content */
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .notification.error {
+            background-color: #ef4444; /* Red-500 */
+        }
+         .notification.success {
+            background-color: #22c55e; /* Green-500 */
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes shine {
+            0% {
+                background-position: -200%;
+            }
+            100% {
+                background-position: 200%;
+            }
+        }
+
+        .shining-text {
+            background-image: linear-gradient(90deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0.2) 100%);
+            background-size: 200%;
+            animation: shine 2s infinite;
+        }
+    </style>
+    <script>
+        async function fetchCandidates() {
+            try {
+                const response = await fetch('candidates.json');
+                if (!response.ok) throw new Error('Failed to fetch candidates data');
+                return await response.json();
+            } catch (error) {
+                console.error('Error fetching candidates:', error);
+                return [];
+            }
+        }
+    </script>
+</head>
+<body class="min-h-screen">
+
+    <div class="container mx-auto px-4 py-8">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-red-500 to-yellow-500 shining-text">
+                Philippine Senatorial Candidates
+            </h1>
+            <p class="text-lg text-gray-400 mt-2">May 2025 National Elections</p>
+            <p class="text-sm text-gray-500 mt-1">Click on a candidate to view details. You can select up to 12 preferred senators.</p>
+        </header>
+
+        <div class="mb-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex space-x-2 border border-gray-700 rounded-lg p-1 bg-gray-800">
+                <button id="allCandidatesTab" class="tab-button active px-4 py-2 rounded-md text-sm font-medium">All Candidates</button>
+                <button id="mySenatorsTab" class="tab-button px-4 py-2 rounded-md text-sm font-medium">My Senators (<span id="selectedCount">0</span>/12)</button>
+            </div>
+            <div class="relative w-full sm:w-auto">
+                <input type="text" id="searchInput" placeholder="Search candidates..." class="search-input w-full sm:w-64 pl-10 pr-4 py-2 rounded-lg border focus:ring-indigo-500 focus:border-indigo-500">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <div id="candidateGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+            </div>
+        <p id="noResultsMessage" class="text-center text-gray-400 mt-10 text-xl hidden">No candidates found.</p>
+        <p id="noSelectionsMessage" class="text-center text-gray-400 mt-10 text-xl hidden">You have not selected any preferred senators yet.</p>
+
+    </div>
+
+    <div id="candidateModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 modal hidden">
+        <div class="modal-content w-full max-w-3xl rounded-lg shadow-xl p-6 md:p-8">
+            <div class="flex justify-between items-start mb-6">
+                <h2 id="modalCandidateNameTitle" class="text-3xl font-bold text-white">Candidate Name</h2>
+                <button id="closeModalButton" class="text-gray-400 hover:text-white text-2xl">&times;</button>
+            </div>
+
+            <div class="md:flex md:space-x-6">
+                <div class="md:w-1/3 text-center md:text-left mb-6 md:mb-0">
+                    <img id="modalCandidatePhoto" src="" alt="Candidate Photo" class="w-48 h-48 object-cover rounded-lg mx-auto md:mx-0 mb-4 border-2 border-gray-600">
+                    <h3 id="modalCandidateParty" class="text-indigo-400"></h3>
+                    <p id="modalCandidateAge" class="text-sm text-gray-400"></p>
+                    <p id="modalCandidateResidence" class="text-sm text-gray-400"></p>
+                    <button id="modalSelectButton" class="w-full action-button text-white font-semibold py-3 px-4 rounded-lg mt-4">
+                        Add to My Senators
+                    </button>
+                    <a id="modalProfileLink" href="#" target="_blank" class="w-full block text-center action-button bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg mt-4">
+                        View Profile
+                    </a>
+                    <div class="flex justify-between mt-4">
+                        <button id="prevCandidateButton" class="action-button bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-lg">
+                            Previous
+                        </button>
+                        <button id="nextCandidateButton" class="action-button bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-lg">
+                            Next
+                        </button>
+                    </div>
+                </div>
+
+                <div class="md:w-2/3">
+                    <div class="mb-6">
+                        <h4 class="section-title">Education</h4>
+                        <ul id="modalEducation" class="list-disc list-inside text-sm space-y-1"></ul>
+                    </div>
+
+                    <div class="mb-6">
+                        <h4 class="section-title">Job Affiliations</h4>
+                        <ul id="modalJobAffiliations" class="list-disc list-inside text-sm space-y-1"></ul>
+                    </div>
+
+                    <div class="mb-6">
+                        <h4 class="section-title">Government Experience</h4>
+                        <ul id="modalGovtExperience" class="list-disc list-inside text-sm space-y-1"></ul>
+                    </div>
+
+                    <div class="mb-6">
+                        <h4 class="section-title">Platforms</h4>
+                        <ul id="modalPlatforms" class="list-disc list-inside text-sm space-y-1"></ul>
+                    </div>
+
+                    <div class="mb-6">
+                        <h4 class="section-title">In Favor Of</h4>
+                        <ul id="modalInFavor" class="list-disc list-inside text-sm space-y-1"></ul>
+                    </div>
+
+                    <div class="mb-6">
+                        <h4 class="section-title">Against</h4>
+                        <ul id="modalAgainst" class="list-disc list-inside text-sm space-y-1"></ul>
+                    </div>
+
+                    <div class="mb-6">
+                        <h4 class="section-title">Family Members in Politics</h4>
+                        <ul id="modalFamilyMembers" class="list-disc list-inside text-sm space-y-1"></ul>
+                    </div>
+
+                    <div class="mb-6">
+                        <h4 class="section-title">Laws Passed</h4>
+                        <ul id="modalLawsPassed" class="list-disc list-inside text-sm space-y-1"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Candidate Data (Embed for simplicity, ideally from a JSON file)
+        let candidatesData = [];
+
+        const candidateGrid = document.getElementById('candidateGrid');
+        const searchInput = document.getElementById('searchInput');
+        const selectedCountDisplay = document.getElementById('selectedCount');
+        const noResultsMessage = document.getElementById('noResultsMessage');
+        const noSelectionsMessage = document.getElementById('noSelectionsMessage');
+
+        const modal = document.getElementById('candidateModal');
+        const closeModalButton = document.getElementById('closeModalButton');
+        const modalCandidateNameTitle = document.getElementById('modalCandidateNameTitle');
+        const modalCandidatePhoto = document.getElementById('modalCandidatePhoto');
+        const modalCandidateName = document.getElementById('modalCandidateName');
+        const modalCandidateParty = document.getElementById('modalCandidateParty');
+        const modalShortBio = document.getElementById('modalShortBio');
+        const modalEducation = document.getElementById('modalEducation');
+        const modalWorkBackground = document.getElementById('modalWorkBackground');
+        const modalLawsAuthored = document.getElementById('modalLawsAuthored');
+        const modalContributions = document.getElementById('modalContributions');
+        const modalIssuesOrViolations = document.getElementById('modalIssuesOrViolations');
+        const modalOtherKeyAspectsContainer = document.getElementById('modalOtherKeyAspectsContainer');
+        const modalOtherKeyAspects = document.getElementById('modalOtherKeyAspects');
+        const modalSelectButton = document.getElementById('modalSelectButton');
+
+        const allCandidatesTab = document.getElementById('allCandidatesTab');
+        const mySenatorsTab = document.getElementById('mySenatorsTab');
+
+        let selectedSenators = JSON.parse(localStorage.getItem('selectedSenators')) || [];
+        let currentFilter = 'all'; // 'all' or 'selected'
+        let currentCandidateIdInModal = null;
+
+        // Function to show non-blocking notifications
+        function showNotification(message, type = 'error', duration = 3000) {
+            const notificationArea = document.body; // Or a dedicated notification container
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`; // 'error' or 'success'
+            notification.textContent = message;
+            
+            notificationArea.appendChild(notification);
+
+            // Trigger the animation
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 10); // Small delay to allow CSS transition
+
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    notification.remove();
+                }, 300); // Allow fade out animation to complete
+            }, duration);
+        }
+
+
+        function updateSelectedCount() {
+            selectedCountDisplay.textContent = selectedSenators.length;
+            if (currentCandidateIdInModal !== null) {
+                const isSelected = selectedSenators.includes(currentCandidateIdInModal);
+                modalSelectButton.textContent = isSelected ? 'Remove from My Senators' : 'Add to My Senators';
+                modalSelectButton.classList.toggle('bg-red-600', isSelected);
+                modalSelectButton.classList.toggle('hover:bg-red-700', isSelected);
+                modalSelectButton.classList.toggle('bg-indigo-600', !isSelected);
+                modalSelectButton.classList.toggle('hover:bg-indigo-700', !isSelected);
+            }
+        }
+
+        function saveSelectedSenators() {
+            localStorage.setItem('selectedSenators', JSON.stringify(selectedSenators));
+        }
+
+        function renderCandidates(filter = '', tab = 'all') {
+            candidateGrid.innerHTML = '';
+            noResultsMessage.classList.add('hidden');
+            noSelectionsMessage.classList.add('hidden');
+
+            let candidatesToDisplay = candidatesData;
+
+            if (tab === 'selected') {
+                candidatesToDisplay = candidatesData.filter(c => selectedSenators.includes(c.candidate_number)); // Filter by selected candidate numbers
+                if (candidatesToDisplay.length === 0) {
+                    noSelectionsMessage.classList.remove('hidden');
+                    return;
+                }
+            }
+
+            const searchTerm = filter.toLowerCase().trim();
+            if (searchTerm) {
+                candidatesToDisplay = candidatesToDisplay.filter(candidate =>
+                    candidate.name.toLowerCase().includes(searchTerm) ||
+                    candidate.political_party.toLowerCase().includes(searchTerm)
+                );
+            }
+
+            if (candidatesToDisplay.length === 0) {
+                noResultsMessage.classList.remove('hidden');
+                return;
+            }
+
+            candidatesToDisplay.forEach(candidate => {
+                const card = document.createElement('div');
+                card.className = `candidate-card fade-in relative group bg-gray-800 rounded-lg shadow-lg p-5 cursor-pointer flex flex-col items-center text-center ${selectedSenators.includes(candidate.candidate_number) ? 'selected' : ''}`;
+                card.dataset.id = candidate.candidate_number;
+
+                const image = document.createElement('img');
+                image.src = candidate.photo;
+                image.alt = candidate.name;
+                image.className = 'w-32 h-32 object-cover rounded-full mb-4 border-2 border-gray-700';
+
+                const name = document.createElement('h3');
+                name.className = 'text-xl font-semibold text-white mb-1';
+                name.textContent = candidate.name;
+
+                const party = document.createElement('p');
+                party.className = 'text-sm text-indigo-400';
+                party.textContent = candidate.political_party;
+
+                // Add/Remove Button
+                const addButton = document.createElement('button');
+                addButton.className = 'absolute top-3 right-3 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 focus:opacity-100 transition-all duration-200 z-10';
+                addButton.setAttribute('aria-label', 'Add or remove candidate');
+
+                const updateAddButtonState = () => {
+                    if (selectedSenators.includes(candidate.candidate_number)) {
+                        addButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>`; // Check icon
+                        addButton.classList.remove('bg-indigo-600', 'hover:bg-indigo-700');
+                        addButton.classList.add('bg-green-500', 'hover:bg-green-600');
+                    } else {
+                        addButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" /></svg>`; // Plus icon
+                        addButton.classList.remove('bg-green-500', 'hover:bg-green-600');
+                        addButton.classList.add('bg-indigo-600', 'hover:bg-indigo-700');
+                    }
+                };
+                updateAddButtonState();
+
+                addButton.addEventListener('click', (event) => {
+                    event.stopPropagation(); // Prevent card click (modal opening)
+                    const candidateId = candidate.candidate_number;
+                    const index = selectedSenators.indexOf(candidateId);
+
+                    if (index > -1) {
+                        selectedSenators.splice(index, 1);
+                        showNotification(`${candidate.name} removed from your senators.`, 'success');
+                    } else {
+                        if (selectedSenators.length < 12) {
+                            selectedSenators.push(candidateId);
+                            showNotification(`${candidate.name} added to your senators.`, 'success');
+                        } else {
+                            showNotification('You can only select up to 12 senators.', 'error');
+                            return;
+                        }
+                    }
+
+                    saveSelectedSenators();
+                    updateSelectedCount();
+                    updateAddButtonState();
+                    card.classList.toggle('selected', selectedSenators.includes(candidateId));
+
+                    if (currentFilter === 'selected' && index > -1) {
+                        renderCandidates(searchInput.value, currentFilter);
+                    }
+                });
+
+                card.appendChild(addButton);
+                card.appendChild(image);
+                card.appendChild(name);
+                card.appendChild(party);
+
+                card.addEventListener('click', () => openModal(candidate.candidate_number));
+                candidateGrid.appendChild(card);
+            });
+        }
+
+        function populateModal(candidate) {
+            currentCandidateIdInModal = candidate.candidate_number;
+            modalCandidateNameTitle.textContent = candidate.name;
+            modalCandidatePhoto.src = candidate.photo || 'https://placehold.co/300x300/E0E0E0/757575?text=No+Image';
+            modalCandidatePhoto.alt = candidate.name;
+            modalCandidateParty.textContent = candidate.political_party;
+            modalCandidateAge.textContent = `Age: ${candidate.basic_information.age}`;
+            modalCandidateResidence.textContent = `Residence: ${candidate.basic_information.residence}`;
+
+            const profileLink = candidate.profile_link || '#';
+            const modalProfileLink = document.getElementById('modalProfileLink');
+            modalProfileLink.href = profileLink;
+            modalProfileLink.classList.toggle('hidden', profileLink === '#');
+
+            const populateList = (element, items, formatter) => {
+                element.innerHTML = '';
+                if (items && items.length > 0) {
+                    items.forEach(item => {
+                        const li = document.createElement('li');
+                        li.innerHTML = formatter(item);
+                        element.appendChild(li);
+                    });
+                } else {
+                    element.innerHTML = '<li>No information available.</li>';
+                }
+            };
+
+            populateList(modalEducation, candidate.education, item => `<strong>${item.degree}</strong> - ${item.institution}`);
+            populateList(modalJobAffiliations, candidate.job_affiliations, item => item);
+            populateList(modalGovtExperience, candidate.govt_experience, item => item);
+            populateList(modalPlatforms, candidate.platforms, item => item);
+            populateList(modalInFavor, candidate.in_favor, item => item);
+            populateList(modalAgainst, candidate.against, item => item);
+            populateList(modalFamilyMembers, candidate.family_members_in_politics, item => `<strong>${item.name}</strong> (${item.relation}) - ${item.position}`);
+            populateList(modalLawsPassed, candidate.laws_passed, item => item);
+
+            updateSelectedCount();
+        }
+
+        function openModal(candidateNumber) {
+            const candidate = candidatesData.find(c => c.candidate_number === candidateNumber); // Match by candidate_number
+            if (candidate) {
+                populateModal(candidate);
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+            currentCandidateIdInModal = null;
+            document.body.style.overflow = 'auto';
+        }
+
+        function navigateCandidate(direction) {
+            if (!currentCandidateIdInModal) return;
+            const currentIndex = candidatesData.findIndex(c => c.candidate_number === currentCandidateIdInModal);
+            if (currentIndex === -1) return;
+
+            let newIndex = currentIndex + direction;
+            if (newIndex < 0) newIndex = candidatesData.length - 1; // Wrap to last candidate
+            if (newIndex >= candidatesData.length) newIndex = 0; // Wrap to first candidate
+
+            openModal(candidatesData[newIndex].candidate_number);
+        }
+
+        // Add swipe functionality
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) navigateCandidate(1); // Swipe left for next
+            if (touchEndX > touchStartX + 50) navigateCandidate(-1); // Swipe right for previous
+        }
+
+        modal.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        modal.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        // Event Listeners for navigation buttons
+        document.getElementById('prevCandidateButton').addEventListener('click', () => navigateCandidate(-1));
+        document.getElementById('nextCandidateButton').addEventListener('click', () => navigateCandidate(1));
+
+        // Event Listeners
+        searchInput.addEventListener('input', (e) => {
+            renderCandidates(e.target.value, currentFilter);
+        });
+
+        closeModalButton.addEventListener('click', closeModal);
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        modalSelectButton.addEventListener('click', () => {
+            if (currentCandidateIdInModal === null) return;
+
+            const candidateId = currentCandidateIdInModal;
+            const candidate = candidatesData.find(c => c.candidate_number === candidateId); // Match by candidate_number
+            if (!candidate) return;
+
+            const index = selectedSenators.indexOf(candidateId);
+
+            if (index > -1) {
+                // Remove from My Senators
+                selectedSenators.splice(index, 1);
+                showNotification(`${candidate.name} removed from your senators.`, 'success');
+            } else {
+                // Add to My Senators if limit is not exceeded
+                if (selectedSenators.length < 12) {
+                    selectedSenators.push(candidateId);
+                    showNotification(`${candidate.name} added to your senators.`, 'success');
+                } else {
+                    showNotification('You can only select up to 12 senators.', 'error');
+                    return;
+                }
+            }
+
+            saveSelectedSenators();
+            updateSelectedCount(); // Update modal button and count display
+
+            // Update the corresponding card in the grid
+            const cardInGrid = candidateGrid.querySelector(`.candidate-card[data-id='${candidateId}']`);
+            if (cardInGrid) {
+                cardInGrid.classList.toggle('selected', selectedSenators.includes(candidateId));
+            }
+
+            // If on "My Senators" tab and a senator is removed, re-render
+            if (currentFilter === 'selected' && index > -1) {
+                renderCandidates(searchInput.value, currentFilter);
+            }
+        });
+
+        allCandidatesTab.addEventListener('click', () => {
+            currentFilter = 'all';
+            allCandidatesTab.classList.add('active');
+            mySenatorsTab.classList.remove('active');
+            renderCandidates(searchInput.value, currentFilter);
+        });
+
+        mySenatorsTab.addEventListener('click', () => {
+            currentFilter = 'selected';
+            mySenatorsTab.classList.add('active');
+            allCandidatesTab.classList.remove('active');
+            renderCandidates(searchInput.value, currentFilter);
+        });
+
+        // Initial Load
+        updateSelectedCount();
+        renderCandidates('', currentFilter);
+
+        function updateTabLabels() {
+            const allCandidatesCount = candidatesData.length;
+            allCandidatesTab.innerHTML = `Candidates (${allCandidatesCount})`; // Update tab label with total candidates
+        }
+
+        async function initializeCandidates() {
+            candidatesData = await fetchCandidates();
+            updateTabLabels(); // Update tab labels after fetching candidates
+            renderCandidates('', currentFilter);
+        }
+
+        document.addEventListener('DOMContentLoaded', initializeCandidates);
+    </script>
+    <footer class="bg-gray-900 text-gray-400 text-center py-6 mt-10">
+        <p class="text-sm">
+            Disclaimer: The data in this project is for informational purposes only and is based on publicly available information. While efforts were made to ensure accuracy, there may be discrepancies due to the nature of manual scraping, AI processing, and the dynamic nature of election-related data. Users are encouraged to verify the information from official sources.
+        </p>
+        <p class="text-sm mt-4">
+            All data is stored locally on your device and is not processed by any external servers or applications.
+        </p>
+        <p class="text-sm mt-4">
+            Sources: 
+            <a href="https://www.facebook.com/philstarnews" target="_blank" class="text-indigo-400 hover:underline">PhilStar</a>, 
+            <a href="https://www.facebook.com/NUDNUntium" target="_blank" class="text-indigo-400 hover:underline">The NUntium</a>, 
+            <a href="https://www.facebook.com/sscalangilan" target="_blank" class="text-indigo-400 hover:underline">Supreme Student Council - BatStateU Alangilan Campus</a>.
+        </p>
+        <p class="text-sm mt-4">
+            Visit the project repository: 
+            <a href="https://github.com/kfasides/ph-election-2025" target="_blank" class="text-indigo-400 hover:underline">GitHub Repository</a>.
+        </p>
+    </footer>
+</body>
+</html>
