@@ -139,6 +139,20 @@
             background-size: 200%;
             animation: shine 2s infinite;
         }
+        .search-suggestions {
+            position: absolute;
+            background-color: #1f2937; /* Gray-800 */
+            border: 1px solid #374151; /* Gray-700 */
+            border-top: none;
+            border-radius: 0 0 0.5rem 0.5rem;
+            z-index: 50; /* Ensure it's above candidate grid but below modals */
+            max-height: 200px;
+            overflow-y: auto;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .suggestion-item:hover {
+            background-color: #374151; /* Gray-700 */
+        }
     </style>
     <script type="text/javascript">
         (function(c,l,a,r,i,t,y){
@@ -176,25 +190,14 @@
                 <label for="aiSearchToggle" class="text-sm font-medium text-gray-300 mr-3">Enable AI Search:</label>
                 <input type="checkbox" id="aiSearchToggle" class="form-checkbox h-5 w-5 text-indigo-600 rounded focus:ring-indigo-500 cursor-pointer">
                 <span id="aiSearchInfo" class="ml-2 text-xs text-gray-400">
-                    Uses Google Gemini 1.5 Flash. Free tier usage may apply.
-                    <a href="https://ai.google.dev/pricing" target="_blank" class="text-indigo-400 hover:underline">Billing Info</a>.
+                    AI features are active. Uses Google Gemini.
                 </span>
+                
             </div>
-
-            <div id="apiKeyControlsContainer" class="hidden">
+            <div id="apiKeyControlsContainer" class="hidden"> {/* This container will be effectively hidden by default now */}
                 <p id="apiKeyStatusMessage" class="text-sm text-gray-400 mb-2"></p>
-                <div id="apiKeyInputGroup" class="flex flex-col sm:flex-row items-center gap-2 mb-2">
-                    <label for="geminiApiKeyInput" class="text-sm font-medium text-gray-300 whitespace-nowrap sr-only sm:not-sr-only">Gemini API Key:</label>
-                    <input type="text" id="geminiApiKeyInput" placeholder="Enter your Gemini API Key" class="search-input flex-grow pl-3 pr-3 py-2 rounded-lg border focus:ring-indigo-500 focus:border-indigo-500">
-                    <button id="saveApiKeyButton" class="action-button bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg text-sm w-full sm:w-auto">Save Key</button>
-                </div>
-                <button id="editApiKeyButton" class="action-button bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-3 rounded-lg text-sm hidden mb-2">Edit API Key</button>
-                <p class="text-xs text-gray-500">
-                    Your API key is stored in session storage for this browser session only.
-                    <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-indigo-400 hover:underline">Get a free API key here</a>.
-                </p>
+                {/* API Key input elements are no longer needed for the user if pre-configured */}
             </div>
-            <p id="apiKeyPromptMessage" class="text-sm text-gray-400 mt-2">Enable AI Search for advanced search capabilities using Google Gemini.</p>
         </div>
 
 
@@ -203,13 +206,24 @@
                 <button id="allCandidatesTab" class="tab-button active px-4 py-2 rounded-md text-sm font-medium">All Candidates</button>
                 <button id="mySenatorsTab" class="tab-button px-4 py-2 rounded-md text-sm font-medium">My Senators (<span id="selectedCount">0</span>/12)</button>
             </div>
-            <div class="relative w-full sm:w-1/2">
-                <input type="text" id="searchInput" placeholder="Search candidates..." class="search-input w-full pl-10 pr-4 py-2 rounded-lg border focus:ring-indigo-500 focus:border-indigo-500">
-                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
-                    </svg>
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:flex-grow relative"> 
+                <div class="relative w-full sm:flex-grow">
+                    <input type="text" id="searchInput" placeholder="Search candidates..." class="search-input w-full pl-10 pr-4 py-2 rounded-lg border focus:ring-indigo-500 focus:border-indigo-500" autocomplete="off">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div id="searchSuggestionsContainer" class="search-suggestions w-full hidden">
+                        {/* Suggestions will be populated here by JavaScript */}
+                    </div>
                 </div>
+                <button id="aiMySenatorsInsightsButton" title="Select 'My Senators' tab and pick candidates" class="w-full sm:w-auto action-button bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-lg text-sm whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                    Slate Insights
+                </button>
+                <button id="shareSlateButton" title="Select 'My Senators' tab and pick candidates to share" class="w-full sm:w-auto action-button bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg text-sm whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                    Share Slate
+                </button>
             </div>
         </div>
 
@@ -254,10 +268,10 @@
                                 Summarize Details
                             </button>
                             <button id="aiCheckIssuesButton" class="w-full action-button bg-amber-600 hover:bg-amber-700 text-white font-semibold py-2 px-3 rounded-lg text-sm disabled:opacity-50">
-                                Check Negative Issues
+                                Check Public Issues
                             </button>
                             <button id="aiSummarizeContributionsButton" class="w-full action-button bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2 px-3 rounded-lg text-sm disabled:opacity-50">
-                                Summarize Contributions (6 Yrs)
+                                Contributions
                             </button>
                         </div>
                         <div id="aiModalOutput" class="p-3 bg-gray-700 rounded-md text-sm text-gray-300 min-h-[60px] whitespace-pre-wrap" style="display: none;">
@@ -310,6 +324,89 @@
             </div>
         </div>
     </div>
+
+    <!-- My Senators Insights Modal -->
+    <div id="mySenatorsInsightsModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 modal hidden">
+        <div class="modal-content w-full max-w-2xl rounded-lg shadow-xl p-6 md:p-8">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-white">AI Insights for Your Selected Senators</h2>
+                <button id="closeMySenatorsInsightsModalButton" class="text-gray-400 hover:text-white text-2xl">&times;</button>
+            </div>
+            <div id="mySenatorsInsightsOutput" class="p-4 bg-gray-700 rounded-md text-sm text-gray-300 min-h-[200px] max-h-[60vh] overflow-y-auto whitespace-pre-wrap">
+                <!-- AI output will appear here -->
+            </div>
+            <div class="mt-6 text-right">
+                <button id="closeMySenatorsInsightsModalButtonBottom" class="action-button bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg text-sm">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Share Slate Modal -->
+    <div id="shareSlateModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 modal hidden">
+        <div class="modal-content w-full max-w-md rounded-lg shadow-xl p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold text-white">Share Your Senatorial Slate</h2>
+                <button id="closeShareSlateModalButton" class="text-gray-400 hover:text-white text-2xl">&times;</button>
+            </div>
+            <p class="text-sm text-gray-300 mb-1">Copy link:</p>
+            <div class="flex mb-4">
+                <input type="text" id="shareableLinkInput" readonly class="search-input flex-grow p-2 rounded-l-md bg-gray-700 border-gray-600 text-gray-200 text-xs sm:text-sm">
+                <button id="copyShareLinkButton" class="action-button bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2 px-3 rounded-r-md text-sm whitespace-nowrap">
+                    Copy
+                </button>
+            </div>
+
+            <p class="text-sm text-gray-300 mb-2">Or share directly to:</p>
+            <div class="space-y-2">
+                <button id="facebookShareButton" class="w-full action-button bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg text-sm flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg>
+                    Share on Facebook
+                </button>
+                <button id="xShareButton" class="w-full action-button bg-gray-800 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-lg text-sm flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    Share on X
+                </button>
+                <button id="genericShareButton" class="w-full action-button bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-lg text-sm flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>
+                    More Share Options
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- How to Get API Key Modal -->
+    <div id="howToApiKeyModal" class="fixed inset-0 z-[60] flex items-center justify-center p-4 modal hidden"> {/* Higher z-index than other modals */}
+        <div class="modal-content w-full max-w-lg rounded-lg shadow-xl p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold text-white">How to Get Your Free Google Gemini API Key</h2>
+                <button id="closeHowToApiKeyModalButton" class="text-gray-400 hover:text-white text-2xl">&times;</button>
+            </div>
+            <div class="text-sm text-gray-300 space-y-3">
+                <p>To use the AI features, you'll need a free API key from Google. It's like a special password that lets this app use Google's AI. Here's how:</p>
+                <ol class="list-decimal list-inside space-y-2 pl-4">
+                    <li><strong>Go to Google AI Studio:</strong> Click this link: 
+                        <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-indigo-400 hover:underline">Get API Key</a> (opens in a new tab).
+                    </li>
+                    <li><strong>Sign In:</strong> If you're not already, sign in with your Google account.</li>
+                    <li><strong>Create or Select a Project:</strong>
+                        <ul class="list-disc list-inside pl-4 text-xs">
+                            <li>You might be asked to create a "New project" or select an existing one.</li>
+                            <li>If creating a new one, you can name it something like "My AI Apps".</li>
+                        </ul>
+                    </li>
+                    <li><strong>Find "Get API key":</strong> Look for a button or option that says "Create API key" or "Get API key" (often associated with your project).</li>
+                    <li><strong>Create the Key:</strong> Click the button. You might need to select the project you just created/selected.</li>
+                    <li><strong>Copy Your Key:</strong> A long string of letters and numbers will appear. This is your API key! Click the copy icon next to it.</li>
+                    <li><strong>Paste it Here:</strong> Come back to this page, paste the copied key into the "Gemini API Key" box, then click "Save Key".</li>
+                </ol>
+                <p class="font-semibold">Important: Keep your API key safe, like a password. This app will only store it in your browser for this session.</p>
+            </div>
+        </div>
+    </div>
+
+
     <script>
         // Candidate Data (Embed for simplicity, ideally from a JSON file)
         let candidatesData = [];
@@ -349,17 +446,42 @@
         const saveApiKeyButton = document.getElementById('saveApiKeyButton'); // Already declared, but good to group
         const editApiKeyButton = document.getElementById('editApiKeyButton');
         const apiKeyPromptMessage = document.getElementById('apiKeyPromptMessage');
+        const aiMySenatorsInsightsButton = document.getElementById('aiMySenatorsInsightsButton');
+        const shareSlateButton = document.getElementById('shareSlateButton');
 
+        // My Senators Insights Modal Elements
+        const mySenatorsInsightsModal = document.getElementById('mySenatorsInsightsModal');
+        const closeMySenatorsInsightsModalButton = document.getElementById('closeMySenatorsInsightsModalButton');
+        const closeMySenatorsInsightsModalButtonBottom = document.getElementById('closeMySenatorsInsightsModalButtonBottom');
+        const searchSuggestionsContainer = document.getElementById('searchSuggestionsContainer');
+        const mySenatorsInsightsOutput = document.getElementById('mySenatorsInsightsOutput');
+
+        // Share Slate Modal Elements
+        const shareSlateModal = document.getElementById('shareSlateModal');
+        const closeShareSlateModalButton = document.getElementById('closeShareSlateModalButton');
+        const shareableLinkInput = document.getElementById('shareableLinkInput');
+        const copyShareLinkButton = document.getElementById('copyShareLinkButton');
+        const facebookShareButton = document.getElementById('facebookShareButton');
+        const xShareButton = document.getElementById('xShareButton');
+        const genericShareButton = document.getElementById('genericShareButton');
+
+        // How to Get API Key Modal Elements
+        const howToApiKeyModal = document.getElementById('howToApiKeyModal');
+        const closeHowToApiKeyModalButton = document.getElementById('closeHowToApiKeyModalButton');
+        const howToGetApiKeyButton = document.getElementById('howToGetApiKeyButton');
         let selectedSenators = JSON.parse(localStorage.getItem('selectedSenators')) || [];
         let currentFilter = 'all'; // 'all' or 'selected'
         let currentCandidateIdInModal = null;
-        let geminiApiKey = sessionStorage.getItem('geminiApiKey');
+        let geminiApiKey = "AIzaSyCpWKyKJsobDUEDg4nrDNRm4dz31XNvdoQ"; // Pre-configured API Key
         let currentNavigationList = []; // Holds the list for modal navigation and tab count reference
-        let aiSearchEnabled = JSON.parse(sessionStorage.getItem('aiSearchEnabled')) || false;
+        let aiSearchEnabled = true; // AI Search enabled by default
         let searchDebounceTimer;
+        
+        let lastSearchedTerm = null; // Cache for the last search term
+        let lastFullSearchResults = null; // Cache for the full results of the last search
 
         const defaultSearchPlaceholder = "Search candidates...";
-        const aiSearchPlaceholder = "e.g., who supports death penalty?";
+        const aiSearchPlaceholder = "Ask about platforms, stances, or attributes (AI Search)";
 
         const spinnerSVG = `<svg class="animate-spin h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -369,6 +491,19 @@
 <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
 </svg>`;
 
+        const sampleSearchSuggestions = [
+            "Who supports environmental protection?",
+            "Candidates with experience in law",
+            "Senators focused on education reform",
+            "What are the platforms on healthcare?",
+            "Candidates against death penalty",
+            "Candidates endorsed by Leni Robredo",
+            "Candidates endorsed by Sarah Duterte",
+            "Candidates endorsed by PBBM",
+            "Candidates with strong anti-corruption platforms",
+            "Candidates with strong economic platforms",
+            "Who has authored laws on anti-corruption?"
+        ];
 
         // Function to show non-blocking notifications
         function showNotification(message, type = 'error', duration = 3000) {
@@ -392,43 +527,74 @@
             }, duration);
         }
 
-        function saveApiKey() {
-            const apiKeyInputValue = geminiApiKeyInput.value.trim();
-            if (apiKeyInputValue) {
-                geminiApiKey = apiKeyInputValue;
-                sessionStorage.setItem('geminiApiKey', geminiApiKey);
-                showNotification('Gemini API Key saved for this session.', 'success');
-                updateApiKeySectionVisibility();
-                geminiApiKeyInput.value = ''; // Clear the input field
-            } else {
-                showNotification('Please enter a valid Gemini API Key.', 'error');
-            }
-        }
+        // saveApiKey function is no longer needed by the user.
 
         function updateApiKeySectionVisibility() {
             if (aiSearchEnabled) {
-                apiKeyControlsContainer.classList.remove('hidden');
-                apiKeyPromptMessage.classList.add('hidden');
+                // Since the API key is pre-configured, we don't need to show input fields.
+                // The apiKeyControlsContainer can remain hidden or be removed from HTML.
+                // For now, let's ensure it's hidden if AI is on.
+                if(apiKeyControlsContainer) apiKeyControlsContainer.classList.add('hidden'); 
+                if(apiKeyPromptMessage) apiKeyPromptMessage.classList.add('hidden');
                 searchInput.placeholder = aiSearchPlaceholder;
+                if(aiSearchInfo) aiSearchInfo.textContent = "AI features are active. Uses Google Gemini.";
 
-                if (geminiApiKey) {
-                    apiKeyStatusMessage.textContent = 'Gemini API Key is active.';
-                    apiKeyInputGroup.classList.add('hidden');
-                    editApiKeyButton.classList.remove('hidden');
-                    if (geminiApiKeyInput) geminiApiKeyInput.value = ''; // Clear password field
-                } else {
-                    apiKeyStatusMessage.textContent = 'AI Search enabled. Please enter your Gemini API Key below.';
-                    apiKeyInputGroup.classList.remove('hidden');
-                    editApiKeyButton.classList.add('hidden');
-                }
             } else {
-                apiKeyControlsContainer.classList.add('hidden');
-                apiKeyPromptMessage.classList.remove('hidden');
+                if(apiKeyControlsContainer) apiKeyControlsContainer.classList.add('hidden'); // Keep hidden if AI is off too
+                if(apiKeyPromptMessage) apiKeyPromptMessage.classList.remove('hidden'); // Show prompt if AI is off
                 searchInput.placeholder = defaultSearchPlaceholder;
                 apiKeyStatusMessage.textContent = '';
             }
+            updateMySenatorsInsightsButtonState(); // Also update the new button's state
+            updateShareSlateButtonState();
         }
 
+        function updateMySenatorsInsightsButtonState() {
+            if (aiMySenatorsInsightsButton) {
+                const isMySenatorsTabActive = currentFilter === 'selected';
+                const hasSelectedSenators = selectedSenators.length > 0;
+
+                if (aiSearchEnabled && geminiApiKey && isMySenatorsTabActive && hasSelectedSenators) {
+                    aiMySenatorsInsightsButton.disabled = false;
+                    aiMySenatorsInsightsButton.title = "Get AI insights for your selected senators";
+                } else {
+                    aiMySenatorsInsightsButton.disabled = true;
+                    if (!aiSearchEnabled) {
+                        aiMySenatorsInsightsButton.title = "Enable AI Search to use this feature.";
+                    } else if (!geminiApiKey) {
+                        aiMySenatorsInsightsButton.title = "Enter your Gemini API Key to use this feature.";
+                    } else if (!isMySenatorsTabActive) {
+                        aiMySenatorsInsightsButton.title = "Switch to 'My Senators' tab to use this feature.";
+                    } else if (!hasSelectedSenators) {
+                        aiMySenatorsInsightsButton.title = "Select at least one senator to get insights.";
+                    } else {
+                        aiMySenatorsInsightsButton.title = "This feature is currently unavailable.";
+                    }
+                }
+            }
+        }
+
+        function updateShareSlateButtonState() {
+            if (shareSlateButton) {
+                const isMySenatorsTabActive = currentFilter === 'selected';
+                const hasSelectedSenators = selectedSenators.length > 0;
+
+                if (isMySenatorsTabActive) {
+                    shareSlateButton.disabled = false;
+                    shareSlateButton.title = hasSelectedSenators ? "Share your current slate of selected senators" : "Select senators to share your slate";
+                } else {
+                    shareSlateButton.disabled = true;
+                    if (!isMySenatorsTabActive) {
+                        shareSlateButton.title = "Switch to 'My Senators' tab to share your slate.";
+                    // This case is now covered by the enabled state above
+                    // } else if (!hasSelectedSenators) { 
+                    //     shareSlateButton.title = "Select at least one senator to share your slate.";
+                    } else {
+                        shareSlateButton.title = "Sharing is currently unavailable.";
+                    }
+                }
+            }
+        }
 
         function updateSelectedCount() {
             selectedCountDisplay.textContent = selectedSenators.length;
@@ -440,6 +606,8 @@
                 modalSelectButton.classList.toggle('bg-indigo-600', !isSelected);
                 modalSelectButton.classList.toggle('hover:bg-indigo-700', !isSelected);
             }
+            updateMySenatorsInsightsButtonState();
+            updateShareSlateButtonState();
         }
 
         function saveSelectedSenators() {
@@ -460,23 +628,39 @@
             const originalIconHTML = searchIconContainer ? searchIconContainer.innerHTML : searchIconSVG;
             if (searchIconContainer) searchIconContainer.innerHTML = spinnerSVG;
 
-            const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${geminiApiKey}`;
+            const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-04-17:generateContent?key=${geminiApiKey}`;
 
-            const simplifiedCandidates = candidates;
+            // Prepare detailed candidate information for the prompt, similar to fetchAiSuggestions
+            const detailedCandidatesForPrompt = candidates.map(c => ({
+                candidate_number: c.candidate_number,
+                name: c.name,
+                political_party: c.political_party,
+                age: c.basic_information.age,
+                residence: c.basic_information.residence,
+                education: c.education.map(e => `${e.degree} at ${e.institution}`).join('; ') || "N/A",
+                job_affiliations: c.job_affiliations.join('; ') || "N/A",
+                govt_experience: c.govt_experience.join('; ') || "N/A",
+                platforms: c.platforms.join('; ') || "N/A",
+                in_favor: c.in_favor.join('; ') || "N/A",
+                against: c.against.join('; ') || "N/A",
+                laws_passed: c.laws_passed.join('; ') || "N/A",
+                family_members_in_politics: c.family_members_in_politics.map(f => `${f.name} (${f.relation}) - ${f.position}`).join('; ') || "N/A"
+            }));
 
             const prompt = `
-                You are an AI assistant helping to find Philippine senatorial candidates based on a user's query.
-                Use your comprehensive understanding of diverse topics, including current events and public figures (drawing from your knowledge base which includes web information), to interpret the user's query effectively.
-                I will provide you with a list of candidates and their details (name, political party, some platforms, stances).
-                Your primary task is to identify which candidates *from this specific list* best match the user's query.
-                Return a JSON array of "candidate_number" (which is an integer) for the matching candidates from the provided list.
-                If no candidates match, return an empty JSON array: [].
-                Only return candidate_numbers from the provided list. Do not invent new numbers or information not present in the candidate details.
+                You are an AI assistant helping a user find Philippine senatorial candidates that match their query.
+                The user will provide a search query. Your task is to:
+                1. Understand the user's query. Use your general knowledge, including your understanding of current events (up to your last training data), to identify key concepts, desired attributes, specific platforms, or political leanings implied by the query. For example, if the query is "candidates for environmental protection", you should look for candidates with platforms related to climate change, conservation, renewable energy, etc. If the query relates to a recent event or policy debate, factor that into your interpretation.
+                2. Review the provided list of candidates and their details (name, political party, education, experience, platforms, stances, laws passed).
+                3. Identify candidates from THIS SPECIFIC LIST whose profiles (based on the provided data) align with the interpreted meaning of the user's query.
+                4. Return a JSON array of "candidate_number" (integer) for the matching candidates from the provided list.
+                5. If no candidates from the list strongly match the interpreted query, return an empty JSON array: [].
+                
                 Do not include any explanations, apologies, or introductory text. Your entire response must be only the JSON array of numbers.
                 For example, if candidates with numbers 3, 7, and 12 match, your response should be exactly: [3, 7, 12]
 
                 Candidate List:
-                ${JSON.stringify(simplifiedCandidates)}
+                ${JSON.stringify(detailedCandidatesForPrompt)}
 
                 User Query: "${query}"
 
@@ -557,7 +741,7 @@
             outputElement.innerHTML = `<div class="flex items-center justify-center"><span class="inline-block align-middle">${spinnerSVG}</span><span class="ml-2">Processing your request...</span></div>`;
             outputElement.style.display = 'block';
 
-            const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${geminiApiKey}`;
+            const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-04-17:generateContent?key=${geminiApiKey}`;
 
             try {
                 const response = await fetch(GEMINI_API_URL, {
@@ -639,14 +823,126 @@
 
         function handleSummarizeContributions(candidate, outputElement, actionButtons) {
             const prompt = `
-                You are an AI assistant. Based on the provided data and your general knowledge, summarize the key contributions and achievements of the political candidate "${candidate.name}" primarily focusing on the last 6 years, if information is available for that period.
-                Consider their roles in government, laws they may have influenced or passed (${JSON.stringify(candidate.laws_passed.join(', ') || "N/A")}), and significant initiatives they've been part of from their listed government experience: ${JSON.stringify(candidate.govt_experience.join(', ') || "N/A")}.
+                You are an AI assistant. Based on the provided data and your general knowledge, summarize the key contributions and achievements of the political candidate "${candidate.name}".
+                Consider their roles in government, laws they may have influenced or passed (such as these: ${JSON.stringify(candidate.laws_passed.join(', ') || "N/A")}), and significant initiatives they've been part of from their listed government experience (such as these: ${JSON.stringify(candidate.govt_experience.join(', ') || "N/A")}).
+                Provide a comprehensive overview of their contributions throughout their career, if information is available.
 
-                Summary of Contributions (focus on last 6 years):
+                Summary of Contributions:
             `;
             callGenericTextAI(prompt, outputElement, actionButtons);
         }
 
+        async function fetchMySenatorsInsights() {
+            if (selectedSenators.length === 0) {
+                showNotification('Please select at least one senator to get insights for your slate.', 'error');
+                return;
+            }
+            if (!aiSearchEnabled || !geminiApiKey) {
+                showNotification('AI Search must be enabled and API key provided for this feature.', 'error');
+                return;
+            }
+
+            const selectedCandidatesDetails = candidatesData
+                .filter(c => selectedSenators.includes(c.candidate_number))
+                .map(c => ({ // Send a subset of details, similar to aiSuggestButton
+                    name: c.name,
+                    political_party: c.political_party,
+                    age: c.basic_information.age,
+                    residence: c.basic_information.residence,
+                    education: c.education.map(e => `${e.degree} at ${e.institution}`).join('; ') || "N/A",
+                    job_affiliations: c.job_affiliations.join('; ') || "N/A",
+                    govt_experience: c.govt_experience.join('; ') || "N/A",
+                    platforms: c.platforms.join('; ') || "N/A",
+                    in_favor: c.in_favor.join('; ') || "N/A",
+                    against: c.against.join('; ') || "N/A",
+                    laws_passed: c.laws_passed.join('; ') || "N/A"
+                }));
+
+            const prompt = `
+                You are an AI political analyst. I have selected the following group of Philippine senatorial candidates.
+                Based on their provided details (name, party, age, residence, education, job affiliations, government experience, platforms, stances, laws passed), please provide an overall analysis of this selection as a potential "slate" or group.
+
+                Consider these aspects in your analysis:
+                1.  **Common Ground & Potential Synergy**: Common themes, overlapping platforms, or shared stances.
+                2.  **Diversity of Expertise & Background**: Range of experiences, educational backgrounds.
+                3.  **Collective Strengths**: Potential combined strengths if elected.
+                4.  **Potential Gaps or Weaknesses**: Obvious gaps in expertise or representation.
+                5.  **Overall Political Leanings/Profile**: General political profile based on party/stances.
+                6.  **Potential Legislative Focus**: Primary legislative focus based on platforms/laws.
+
+                Provide a concise, balanced, and insightful summary. Avoid definitive election predictions.
+
+                Selected Candidates Data:
+                ${JSON.stringify(selectedCandidatesDetails)}
+
+                Analysis:
+            `;
+
+            mySenatorsInsightsModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            // Use callGenericTextAI to handle the API call and display
+            // The actionButtonsToToggle for this call would be the aiMySenatorsInsightsButton itself
+            callGenericTextAI(prompt, mySenatorsInsightsOutput, [aiMySenatorsInsightsButton]);
+        }
+
+        function handleShareSlate() {
+            if (selectedSenators.length === 0) {
+                showNotification('Please select some senators before sharing.', 'error');
+                return;
+            }
+            const slateQueryParam = selectedSenators.join(',');
+            const shareUrl = `${window.location.origin}${window.location.pathname}?slate=${slateQueryParam}`;
+            
+            shareableLinkInput.value = shareUrl;
+            shareSlateModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function copyShareLink() {
+            shareableLinkInput.select();
+            shareableLinkInput.setSelectionRange(0, 99999); // For mobile devices
+            try {
+                navigator.clipboard.writeText(shareableLinkInput.value);
+                showNotification('Share link copied to clipboard!', 'success');
+            } catch (err) {
+                showNotification('Failed to copy link. Please copy it manually.', 'error');
+                console.error('Failed to copy text: ', err);
+            }
+        }
+
+        function shareToFacebook() {
+            const shareUrl = shareableLinkInput.value;
+            if (!shareUrl) return;
+            const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
+            window.open(fbShareUrl, '_blank', 'noopener,noreferrer,width=600,height=400');
+        }
+
+        function shareToX() {
+            const shareUrl = shareableLinkInput.value;
+            if (!shareUrl) return;
+            const text = encodeURIComponent("Check out my Philippine Senatorial Slate for 2025! #Halalan2025 #PHVote");
+            const xShareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${text}`;
+            window.open(xShareUrl, '_blank', 'noopener,noreferrer,width=600,height=400');
+        }
+
+        async function shareGeneric() {
+            const shareUrl = shareableLinkInput.value;
+            if (!shareUrl) return;
+            const shareData = {
+                title: 'My Senatorial Slate 2025',
+                text: 'Check out my Philippine Senatorial Slate for 2025! #Halalan2025',
+                url: shareUrl,
+            };
+            if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
+                try {
+                    await navigator.share(shareData);
+                    showNotification('Slate shared successfully!', 'success');
+                } catch (err) {
+                    console.error('Error using Web Share API:', err);
+                    showNotification('Could not share. Link copied instead.', 'error'); copyShareLink();
+                }
+            } else { showNotification('Web Share not supported. Link copied instead.', 'error'); copyShareLink(); }
+        }
         // Function to specifically update the "All Candidates" tab label
         function updateAllCandidatesTabLabel(count) {
             allCandidatesTab.innerHTML = `All Candidates (${count})`;
@@ -755,49 +1051,49 @@
 
         async function performSearchAndRender(searchTerm, tab) {
             searchTerm = searchTerm.trim();
-            let listForCurrentTabDisplay;
-            let countForAllCandidatesTab;
+            let listForCurrentTabDisplay; // This will hold the candidates to actually render
 
-            if (searchTerm) {
-                if (aiSearchEnabled) {
-                    candidateGrid.innerHTML = `<p class="text-center text-gray-400 col-span-full py-10">
-                        <span class="inline-block align-middle">${spinnerSVG}</span>
-                        <span class="inline-block align-middle ml-2">AI is searching for "${searchTerm}"...</span>
-                    </p>`;
-                    // Perform AI search on all candidates to get the count for "All Candidates" tab
-                    const allCandidatesMatchingAI = await searchWithGemini(searchTerm, candidatesData);
-                    countForAllCandidatesTab = allCandidatesMatchingAI.length;
+            // Check if we need to perform a new search or can use cached results
+            if (searchTerm !== lastSearchedTerm || lastFullSearchResults === null) {
+                // New search or search term cleared, or no cached results
+                lastSearchedTerm = searchTerm; // Update the cached search term
 
-                    if (tab === 'all') {
-                        listForCurrentTabDisplay = allCandidatesMatchingAI;
-                    } else { // tab is 'selected', filter the AI results further
-                        listForCurrentTabDisplay = allCandidatesMatchingAI.filter(c => selectedSenators.includes(c.candidate_number));
-                    }
-                } else { // Local search
-                    const termLower = searchTerm.toLowerCase();
-                    const allCandidatesMatchingLocal = candidatesData.filter(candidate =>
-                        candidate.name.toLowerCase().includes(termLower) ||
-                        candidate.political_party.toLowerCase().includes(termLower)
-                    );
-                    countForAllCandidatesTab = allCandidatesMatchingLocal.length;
-
-                    if (tab === 'all') {
-                        listForCurrentTabDisplay = allCandidatesMatchingLocal;
-                    } else { // tab is 'selected'
-                        const selectedBaseList = candidatesData.filter(c => selectedSenators.includes(c.candidate_number));
-                        listForCurrentTabDisplay = selectedBaseList.filter(candidate => // Filter within selected
+                if (searchTerm) {
+                    if (aiSearchEnabled) {
+                        candidateGrid.innerHTML = `<p class="text-center text-gray-400 col-span-full py-10">
+                            <span class="inline-block align-middle">${spinnerSVG}</span>
+                            <span class="inline-block align-middle ml-2">AI is searching for "${searchTerm}"...</span>
+                        </p>`;
+                        lastFullSearchResults = await searchWithGemini(searchTerm, candidatesData);
+                    } else { // Local search
+                        const termLower = searchTerm.toLowerCase();
+                        lastFullSearchResults = candidatesData.filter(candidate =>
                             candidate.name.toLowerCase().includes(termLower) ||
                             candidate.political_party.toLowerCase().includes(termLower)
                         );
                     }
+                } else { // No search term, show all (or all selected)
+                    lastFullSearchResults = [...candidatesData]; // Reset to full list if search term is cleared
                 }
-                updateAllCandidatesTabLabel(countForAllCandidatesTab);
-                renderCandidatesFromList(listForCurrentTabDisplay, searchTerm, tab);
-            } else { // No search term
-                updateAllCandidatesTabLabel(candidatesData.length);
-                const baseList = (tab === 'all') ? candidatesData : candidatesData.filter(c => selectedSenators.includes(c.candidate_number));
-                renderCandidatesFromList(baseList, '', tab);
             }
+            // At this point, lastFullSearchResults contains the results for lastSearchedTerm (or all candidates if term is empty)
+
+            // Update the "All Candidates" tab label based on the count of the full search results (if a search term exists)
+            // or the total number of candidates (if no search term).
+            if (lastSearchedTerm) {
+                updateAllCandidatesTabLabel(lastFullSearchResults.length);
+            } else {
+                updateAllCandidatesTabLabel(candidatesData.length);
+            }
+
+            // Now, filter lastFullSearchResults based on the current tab
+            if (tab === 'all') {
+                listForCurrentTabDisplay = lastFullSearchResults;
+            } else { // tab is 'selected'
+                listForCurrentTabDisplay = lastFullSearchResults.filter(c => selectedSenators.includes(c.candidate_number));
+            }
+
+            renderCandidatesFromList(listForCurrentTabDisplay, searchTerm, tab);
         }
 
         function populateModal(candidate) {
@@ -886,6 +1182,15 @@
             document.body.style.overflow = 'auto';
         }
 
+        function closeShareSlateModal() {
+            shareSlateModal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        function closeMySenatorsInsightsModal() {
+            mySenatorsInsightsModal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
         function navigateCandidate(direction) {
             if (!currentCandidateIdInModal) return;
             const currentIndex = currentNavigationList.findIndex(c => c.candidate_number === currentCandidateIdInModal);
@@ -916,6 +1221,40 @@
             handleSwipe();
         });
 
+        function renderSearchSuggestions(query = "") {
+            searchSuggestionsContainer.innerHTML = '';
+            const filteredSuggestions = sampleSearchSuggestions.filter(suggestion => 
+                suggestion.toLowerCase().includes(query.toLowerCase())
+            );
+
+            if (filteredSuggestions.length === 0 && !query) { // Show all if no query and no filter results (e.g. initial focus)
+                 sampleSearchSuggestions.forEach(suggestionText => {
+                    const item = document.createElement('div');
+                    item.className = 'suggestion-item p-2 cursor-pointer text-sm text-gray-300 hover:bg-gray-700';
+                    item.textContent = suggestionText;
+                    item.addEventListener('mousedown', () => { // mousedown to fire before blur
+                        searchInput.value = suggestionText;
+                        searchSuggestionsContainer.classList.add('hidden');
+                        performSearchAndRender(suggestionText, currentFilter);
+                    });
+                    searchSuggestionsContainer.appendChild(item);
+                });
+            } else {
+                filteredSuggestions.forEach(suggestionText => {
+                    const item = document.createElement('div');
+                    item.className = 'suggestion-item p-2 cursor-pointer text-sm text-gray-300';
+                    item.textContent = suggestionText;
+                    item.addEventListener('mousedown', () => {
+                        searchInput.value = suggestionText;
+                        searchSuggestionsContainer.classList.add('hidden');
+                        performSearchAndRender(suggestionText, currentFilter);
+                    });
+                    searchSuggestionsContainer.appendChild(item);
+                });
+            }
+            searchSuggestionsContainer.classList.toggle('hidden', filteredSuggestions.length === 0 && query.length > 0);
+        }
+
         // Event Listeners for navigation buttons
         document.getElementById('prevCandidateButton').addEventListener('click', () => navigateCandidate(-1));
         document.getElementById('nextCandidateButton').addEventListener('click', () => navigateCandidate(1));
@@ -925,8 +1264,23 @@
             clearTimeout(searchDebounceTimer);
             searchDebounceTimer = setTimeout(async () => {
                 const searchTerm = e.target.value.trim();
+                if (searchTerm) {
+                    searchSuggestionsContainer.classList.add('hidden'); // Hide suggestions once search is triggered
+                } else {
+                    renderSearchSuggestions(); // Show all suggestions if input is cleared
+                    searchSuggestionsContainer.classList.remove('hidden');
+                }
                 performSearchAndRender(searchTerm, currentFilter);
             }, 1500);
+            renderSearchSuggestions(e.target.value); // Filter suggestions as user types
+        });
+
+        searchInput.addEventListener('focus', () => {
+            renderSearchSuggestions(searchInput.value);
+            if (searchSuggestionsContainer.children.length > 0) searchSuggestionsContainer.classList.remove('hidden');
+        });
+        searchInput.addEventListener('blur', () => {
+            setTimeout(() => searchSuggestionsContainer.classList.add('hidden'), 150); // Delay to allow click on suggestion
         });
         closeModalButton.addEventListener('click', closeModal);
         window.addEventListener('keydown', (e) => {
@@ -983,18 +1337,97 @@
             currentFilter = 'all';
             allCandidatesTab.classList.add('active');
             mySenatorsTab.classList.remove('active');
+            updateMySenatorsInsightsButtonState();
             performSearchAndRender(searchInput.value, 'all');
         });
 
+        if (shareSlateButton) {
+            shareSlateButton.addEventListener('click', handleShareSlate);
+        }
+
         mySenatorsTab.addEventListener('click', () => {
             currentFilter = 'selected';
+            updateMySenatorsInsightsButtonState();
             mySenatorsTab.classList.add('active');
             allCandidatesTab.classList.remove('active');
             performSearchAndRender(searchInput.value, 'selected');
         });
 
+        if (aiMySenatorsInsightsButton) {
+            aiMySenatorsInsightsButton.addEventListener('click', fetchMySenatorsInsights);
+        }
+
+        // Event listeners for the new modal
+        if (closeMySenatorsInsightsModalButton) {
+            closeMySenatorsInsightsModalButton.addEventListener('click', closeMySenatorsInsightsModal);
+        }
+        if (closeMySenatorsInsightsModalButtonBottom) {
+            closeMySenatorsInsightsModalButtonBottom.addEventListener('click', closeMySenatorsInsightsModal);
+        }
+        if (mySenatorsInsightsModal) {
+            mySenatorsInsightsModal.addEventListener('click', (e) => {
+                if (e.target === mySenatorsInsightsModal) closeMySenatorsInsightsModal();
+            });
+        }
+
+        // Event listeners for Share Slate Modal
+        if (closeShareSlateModalButton) {
+            closeShareSlateModalButton.addEventListener('click', closeShareSlateModal);
+        }
+        if (copyShareLinkButton) {
+            copyShareLinkButton.addEventListener('click', copyShareLink);
+        }
+        if (facebookShareButton) {
+            facebookShareButton.addEventListener('click', shareToFacebook);
+        }
+        if (xShareButton) {
+            xShareButton.addEventListener('click', shareToX);
+        }
+        if (genericShareButton) {
+            genericShareButton.addEventListener('click', shareGeneric);
+        }
+        if (shareSlateModal) {
+            shareSlateModal.addEventListener('click', (e) => {
+                if (e.target === shareSlateModal) closeShareSlateModal();
+            });
+        }
+
+        // Event listeners for How to Get API Key Modal
+        if (howToGetApiKeyButton) {
+            howToGetApiKeyButton.addEventListener('click', () => {
+                howToApiKeyModal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden'; // Prevent background scroll
+            });
+        }
+        if (closeHowToApiKeyModalButton) {
+            closeHowToApiKeyModalButton.addEventListener('click', () => {
+                howToApiKeyModal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            });
+        }
+        if (howToApiKeyModal) {
+            howToApiKeyModal.addEventListener('click', (e) => { if (e.target === howToApiKeyModal) { howToApiKeyModal.classList.add('hidden'); document.body.style.overflow = 'auto'; } });
+        }
+
         async function initializeCandidates() {
             candidatesData = await fetchCandidates();
+
+            // Check for slate in URL params before doing anything else
+            const urlParams = new URLSearchParams(window.location.search);
+            const slateParam = urlParams.get('slate');
+            if (slateParam) {
+                const slateCandidateNumbers = slateParam.split(',')
+                    .map(numStr => parseInt(numStr.trim(), 10))
+                    .filter(num => !isNaN(num));
+                
+                // Filter against actual candidate numbers to ensure validity and avoid duplicates
+                selectedSenators = candidatesData.filter(c => slateCandidateNumbers.includes(c.candidate_number)).map(c => c.candidate_number);
+                if (selectedSenators.length > 12) selectedSenators = selectedSenators.slice(0, 12); // Enforce limit
+                saveSelectedSenators();
+                // Clear the slate parameter from URL to avoid re-processing on refresh
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+
             if (candidatesData.length === 0) {
                 candidateGrid.innerHTML = '<p class="text-center text-gray-400 mt-10 text-xl col-span-full">Failed to load candidate data or no data available.</p>';
                 noResultsMessage.classList.add('hidden');
@@ -1008,22 +1441,24 @@
             currentNavigationList = [...candidatesData]; // Initialize navigation list
             updateAllCandidatesTabLabel(candidatesData.length); // Initial count for "All Candidates" tab
             updateSelectedCount(); // Initial count for "My Senators" tab
+            updateShareSlateButtonState(); // Update share button state after potential load from URL
+            if (slateParam && selectedSenators.length > 0) { // If slate was loaded from URL, switch to My Senators tab
+                mySenatorsTab.click(); // Programmatically click the tab
+                return; // performSearchAndRender will be called by the tab click
+            }
             performSearchAndRender('', currentFilter); // Initial render
         }
 
         document.addEventListener('DOMContentLoaded', () => {
             aiSearchToggle.checked = aiSearchEnabled;
             // Set initial placeholder based on aiSearchEnabled state
+            updateMySenatorsInsightsButtonState(); // Initial state for the new button
+            updateShareSlateButtonState(); // Initial state for share button
             updateApiKeySectionVisibility();
 
-            saveApiKeyButton.addEventListener('click', saveApiKey);
-
-            editApiKeyButton.addEventListener('click', () => {
-                apiKeyInputGroup.classList.remove('hidden');
-                editApiKeyButton.classList.add('hidden');
-                apiKeyStatusMessage.textContent = 'Update your Gemini API Key.';
-                if (geminiApiKeyInput) geminiApiKeyInput.focus();
-            });
+            // Remove event listeners for save/edit API key as they are no longer user-facing
+            // saveApiKeyButton.addEventListener('click', saveApiKey);
+            // editApiKeyButton.addEventListener('click', ...);
 
             aiSearchToggle.addEventListener('change', () => {
                 aiSearchEnabled = aiSearchToggle.checked;
@@ -1036,9 +1471,9 @@
                 }
                 performSearchAndRender(searchInput.value.trim(), currentFilter); // Re-filter/render main grid
 
-                if (aiSearchEnabled && !geminiApiKey) {
-                    showNotification('AI Search enabled. Please provide your Gemini API Key to use this feature.', 'error', 4000);
-                }
+                // The notification for missing API key is no longer relevant as it's pre-configured.
+                updateMySenatorsInsightsButtonState();
+                updateShareSlateButtonState();
             });
 
             initializeCandidates();
